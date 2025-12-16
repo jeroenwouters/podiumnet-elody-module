@@ -1,0 +1,33 @@
+{
+  "nl": {
+    "bulk-operations": {
+      "create-mediafile": "Create mediafile"
+    },
+    "entity-translations": {
+      "plural": {
+      }
+    },
+    "element-labels": {
+    },
+    "metadata": {
+      "labels": {
+        "id": "ID"
+      }
+    },
+    "navigation": {
+      "mediafiles": "Mediafiles",
+      "create-mediafile": "Create mediafile"
+    },
+    "panel-labels": {
+      "mediafile-info": "Mediafile info",
+      "auth": "Authentication",
+      "fetch": "Fetch",
+      "mappings": "Mappings",
+      "sources": "Sources",
+      "targets": "Targets"
+    },
+    "window-element-labels": {
+      "info-window": "Info"
+    }
+  }
+}

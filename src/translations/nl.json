@@ -1,0 +1,33 @@
+{
+  "nl": {
+    "bulk-operations": {
+      "create-mediafile": "Mediafile aanmaken"
+    },
+    "entity-translations": {
+      "plural": {
+      }
+    },
+    "element-labels": {
+    },
+    "metadata": {
+      "labels": {
+        "id": "Id"
+      }
+    },
+    "navigation": {
+      "mediafiles": "Mediafiles",
+      "create-mediafile": "Mediafile aanmaken"
+    },
+    "panel-labels": {
+      "mediafile-info": "Mediafile-info",
+      "auth": "Authenticatie",
+      "fetch": "Ophalen",
+      "mappings": "Mappings",
+      "sources": "Bronnen",
+      "targets": "Doelen"
+    },
+    "window-element-labels": {
+      "info-window": "Info"
+    }
+  }
+}
