@@ -4,12 +4,14 @@ export const podiumnetSchema = gql`
   enum RouteNames {
     Mediafiles
     Users
+    Assets
   }
 
   enum Entitytyping {
     mediafile
     user
     tenant
+    asset  
   }
 
   #  enum KeyValueSource {
@@ -61,6 +63,23 @@ export const podiumnetSchema = gql`
     deleteQueryOptions: DeleteQueryOptions
     mapElement: MapElement
   }
+  
+  type Asset implements Entity {
+    id: String!
+    uuid: String!
+    type: String!
+    teaserMetadata: teaserMetadata
+    intialValues: IntialValues!
+    allowedViewModes: AllowedViewModes
+    relationValues: JSON
+    entityView: ColumnList!
+    advancedFilters: AdvancedFilters
+    sortOptions: SortOptions
+    bulkOperationOptions: BulkOperationOptions
+    previewComponent: PreviewComponent
+    deleteQueryOptions: DeleteQueryOptions
+    mapElement: MapElement
+  }
 
   type User implements Entity {
     id: String!
@@ -92,24 +111,6 @@ export const podiumnetSchema = gql`
     advancedFilters: AdvancedFilters
     sortOptions: SortOptions
     bulkOperationOptions: BulkOperationOptions
-    deleteQueryOptions: DeleteQueryOptions
-    mapElement: MapElement
-  }
-
-  #  Should be removed at some point
-  type Asset implements Entity {
-    id: String!
-    uuid: String!
-    type: String!
-    teaserMetadata: teaserMetadata
-    intialValues: IntialValues!
-    allowedViewModes: AllowedViewModes
-    relationValues: JSON
-    entityView: ColumnList!
-    advancedFilters: AdvancedFilters
-    sortOptions: SortOptions
-    bulkOperationOptions: BulkOperationOptions
-    previewComponent: PreviewComponent
     deleteQueryOptions: DeleteQueryOptions
     mapElement: MapElement
   }

@@ -10,7 +10,6 @@ export const podiumnetRoutes = [
         name: RouteNames.Home,
         component: "Home",
         meta: {
-            requiresAuth: true,
             type: Collection.Mediafiles,
             entityType: Entitytyping.Mediafile,
             breadcrumbs: [
@@ -24,7 +23,8 @@ export const podiumnetRoutes = [
                 path: ":type/:id",
                 name: RouteNames.SingleEntity,
                 component: "SingleEntity",
-                meta: {},
+                meta: {
+                },
             },
               {
                 path: "mediafiles",
@@ -33,6 +33,17 @@ export const podiumnetRoutes = [
                 meta: {
                     type: Collection.Mediafiles,
                     entityType: Entitytyping.Mediafile,
+                    breadcrumbs: [
+                    ],
+                },
+            },
+            {
+                path: "assets",
+                name: RouteNames.Assets,
+                component: "Home",
+                meta: {
+                    type: Collection.Entities,
+                    entityType: Entitytyping.Asset,
                     breadcrumbs: [
                     ],
                 },

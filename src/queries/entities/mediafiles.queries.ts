@@ -157,6 +157,92 @@ export const mediafileQueries = gql`
       openByDefault(input: true)
     }
   }
+  
+  fragment mediafileInPodiumnetEntity on MediaFileEntity {
+    ...minimalBaseEntity
+    intialValues {
+      id
+      filename: keyValue(key: "filename", source: root)
+      original_filename: keyValue(key: "original_filename", source: root)
+      transcode_filename: keyValue(
+        key: "display_filename"
+        source: root
+        # technicalOrigin: "transcode"
+      )
+      display_filename: keyValue(
+        key: "display_filename"
+        source: root
+        # technicalOrigin: "transcode"
+      )
+      original_file_location: keyValue(
+        key: "original_file_location"
+        source: root
+      )
+      transcode_file_location: keyValue(
+        key: "display_filename"
+        source: root
+        # technicalOrigin: "transcode"
+      )
+      thumbnail: keyValue(key: "display_filename", source: root)
+      mimetype: keyValue(key: "mimetype", source: root)
+      __typename
+    }
+    teaserMetadata {
+      thumbnail: thumbnail {
+        key(input: "thumbnail")
+        __typename
+      }
+      original_filename: metaData {
+        label(input: "metadata.labels.filename")
+        key(input: "original_filename")
+        __typename
+      }
+      contextMenuActions {
+        doLinkAction {
+          label(input: "contextMenu.contextMenuLinkAction.followLink")
+          icon(input: "AngleRight")
+          __typename
+        }
+        primaryMediafile: doGeneralAction {
+          label(
+            input: "contextMenu.contextMenuGeneralAction.setPrimaryMediafile"
+          )
+          action(input: SetPrimaryMediafile)
+          icon(input: "Link")
+          __typename
+        }
+        primaryThumbnail: doGeneralAction {
+          label(
+            input: "contextMenu.contextMenuGeneralAction.setPrimaryThumbnail"
+          )
+          action(input: SetPrimaryThumbnail)
+          icon(input: "ImageCheck")
+          __typename
+        }
+        deleteRelation: doElodyAction {
+          label(input: "contextMenu.contextMenuElodyAction.delete-relation")
+          action(input: DeleteRelation)
+          icon(input: "Trash")
+          __typename
+        }
+        deleteEntity: doElodyAction {
+          label(input: "contextMenu.contextMenuElodyAction.delete-entity")
+          action(input: DeleteEntity)
+          icon(input: "Trash")
+          __typename
+        }
+        __typename
+      }
+    }
+    allowedViewModes {
+      viewModes(
+        input: [{ viewMode: ViewModesList }, { viewMode: ViewModesGrid }]
+      ) {
+        ...viewModes
+      }
+    }
+    __typename
+  }
 
 
   fragment filtersForMediafile on MediaFileEntity {

@@ -276,6 +276,23 @@ export const podiumnetQueries = gql`
             icon
             requiresAuth
         }
+        asset: menuItem(
+          label: "navigation.asset"
+          entityType: mediafile
+          typeLink: { route: { destination: "assets" } }
+          icon: CloudDataConnection
+          requiresAuth: true
+        ) {
+            label
+            entityType
+            typeLink {
+                route {
+                    destination
+                }
+            }
+            icon
+            requiresAuth
+        }
       }
     }
   }
@@ -438,6 +455,39 @@ export const podiumnetQueries = gql`
       boolean
       type
     }
+  }
+  
+  query GetMediafilesInPodiumnet(
+    $type: Entitytyping!
+    $limit: Int
+    $skip: Int
+    $searchValue: SearchFilter!
+    $advancedSearchValue: [FilterInput]
+    $advancedFilterInputs: [AdvancedFilterInput!]!
+    $searchInputType: SearchInputType
+  ) {
+    Entities(
+      type: $type
+      limit: $limit
+      skip: $skip
+      searchValue: $searchValue
+      advancedSearchValue: $advancedSearchValue
+      advancedFilterInputs: $advancedFilterInputs
+      searchInputType: $searchInputType
+    ) {
+      count
+      limit
+      results {
+        id
+        uuid
+        type
+        ... on MediaFileEntity {
+          ...mediafileInPodiumnetEntity
+        }
+      }
+      __typename
+    }
+    __typename
   }
 
   query getPreviewComponents($entityType: String!) {
