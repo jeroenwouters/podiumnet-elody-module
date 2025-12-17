@@ -187,7 +187,7 @@ export const mediafileQueries = gql`
         advancedFilters {
             technical_origin: advancedFilter(
                 type: text
-                key: ["podiumnet:1|metadata.technical_origin"]
+                key: ["elody:1|technical_origin"]
             ) {
                 type
                 key
@@ -196,7 +196,7 @@ export const mediafileQueries = gql`
             }
             filename: advancedFilter(
                 type: text
-                key: ["podiumnet:1|properties.title.value"]
+                key: ["elody:1|properties.title.value"]
                 label: "metadata.labels.filename"
                 isDisplayedByDefault: true
             ) {
@@ -207,7 +207,7 @@ export const mediafileQueries = gql`
             }
             mimetype: advancedFilter(
                 type: text
-                key: ["podiumnet:1|metadata.mimetype"]
+                key: ["elody:1|metadata.mimetype"]
                 label: "metadata.labels.mimetype"
                 isDisplayedByDefault: true
             ) {
