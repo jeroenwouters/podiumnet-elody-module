@@ -26,6 +26,7 @@ export const podiumnetResolver: Resolvers = {
       if (type === "user") return "User";
       else if (type === "tenant") return "Tenant";
       else if (type === "mediafile") return "Mediafile";
+      else if (type === "asset") return "Asset";
       return "BaseEntity";
     },
   },
@@ -36,6 +37,9 @@ export const podiumnetResolver: Resolvers = {
     ...baseSetOffResolvers,
   },
   Mediafile: {
+    ...baseSetOffResolvers,
+  },
+  Asset: {
     ...baseSetOffResolvers,
   },
   Query: {

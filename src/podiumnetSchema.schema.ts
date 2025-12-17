@@ -28,7 +28,8 @@ export const podiumnetSchema = gql`
 
   # Merge with BaseFieldType from baseSchema
    enum BaseFieldType {
-    hasWriterField
+       hasWriterField
+       assetStatusTypeField
    }
 
   interface Entity {

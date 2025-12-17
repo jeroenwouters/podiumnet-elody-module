@@ -6,7 +6,7 @@ import { podiumnetAppConfig } from "./podiumnetAppConfig";
 import { podiumnetFields } from "./sources/forms";
 import { loadTranslationsFromDirectory } from "base-graphql";
 import path from "path";
-import { podiumnetElodyTypeCollectionMapping } from "./sources/typeCollectionMapping";
+import { podiumnetTypeCollectionMapping } from "./sources/typeCollectionMapping";
 import { podiumnetTypePillLabelMapping } from "./sources/typePillLabelMapping";
 
 const podiumnetTranslations: Record<string, Object> =
@@ -25,6 +25,6 @@ export {
   podiumnetAppConfig,
   podiumnetTranslations,
   podiumnetFields,
-  podiumnetElodyTypeCollectionMapping,
+  podiumnetTypeCollectionMapping,
   podiumnetTypePillLabelMapping,
 };

@@ -1,8 +1,5 @@
 {
   "nl": {
-    "bulk-operations": {
-      "create-mediafile": "Mediafile aanmaken"
-    },
     "entity-translations": {
       "plural": {
       }
@@ -11,12 +8,35 @@
     },
     "metadata": {
       "labels": {
-        "id": "Id"
+        "id": "Id",
+        "title": "Titel"
       }
     },
     "navigation": {
       "mediafiles": "Mediafiles",
-      "create-mediafile": "Mediafile aanmaken"
+      "create-mediafile": "Mediafile aanmaken",
+      "create-asset": "Asset",
+      "assets": "Assets"
+    },
+    "bulk-operations": {
+      "create-mediafile": "Mediafile aanmaken",
+      "create-asset": "Maak asset aan",
+      "add-asset": "Voeg een asset toe",
+      "delete-labels": {
+        "asset": "asset",
+        "asset-part": "asset part",
+        "mediafile": "mediafile",
+        "institution": "instituut",
+        "set": "set",
+        "assets-downloads-photographers": "assets / downloads / fotograaf",
+        "assets-mediafiles": "assets / mediafiles",
+        "mediafiles": "mediafiles",
+        "asset-parts": "asset parts",
+        "assets": "assets"
+      },
+      "delete-entities": {
+        "label": "Verwijder ook deze gerelateerde entiteiten"
+      }
     },
     "panel-labels": {
       "mediafile-info": "Mediafile-info",

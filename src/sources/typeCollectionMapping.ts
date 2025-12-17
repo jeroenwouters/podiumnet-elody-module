@@ -1,7 +1,8 @@
 import { Collection, Entitytyping } from "../../generated-types/type-defs";
 
-export const podiumnetElodyTypeCollectionMapping: {
+export const podiumnetTypeCollectionMapping: {
   [test: string]: Collection;
 } = {
-  [Entitytyping.Mediafile]: Collection.Entities,
+  [Entitytyping.Mediafile]: Collection.Mediafiles,
+  [Entitytyping.Asset]: Collection.Entities,
 };

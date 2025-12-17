@@ -6,49 +6,72 @@ import {
 
 export const podiumnetRoutes = [
     {
-        path: "/",
+        path: "/assets",
         name: RouteNames.Home,
-        component: "Home",
+        component: "HomeWrapper",
         meta: {
-            type: Collection.Mediafiles,
-            entityType: Entitytyping.Mediafile,
+            requiresAuth: false,
+            type: Collection.Entities,
+            entityType: Entitytyping.Asset,
+            hasEditMetadataButton: false,
+            slug: "assets",
             breadcrumbs: [
                 {
-                    overviewPage: RouteNames.Mediafiles,
+                    overviewPage: RouteNames.Assets,
+                    title: "navigation.assets",
                 },
             ],
         },
         children: [
-              {
+            {
                 path: ":type/:id",
                 name: RouteNames.SingleEntity,
                 component: "SingleEntity",
+                meta: {},
+            },
+            {
+                path: "/assets",
+                name: RouteNames.Assets,
+                component: "Home",
                 meta: {
+                    requiresAuth: false,
+                    type: Collection.Entities,
+                    entityType: Entitytyping.Asset,
+                    hasEditMetadataButton: false,
+                    slug: "assets",
+                    breadcrumbs: [
+                        {
+                            overviewPage: RouteNames.Assets,
+                            title: "navigation.assets",
+                        },
+                    ],
                 },
             },
-              {
-                path: "mediafiles",
+            {
+                path: "/mediafiles",
                 name: RouteNames.Mediafiles,
                 component: "Home",
                 meta: {
                     type: Collection.Mediafiles,
                     entityType: Entitytyping.Mediafile,
+                    hasEditMetadataButton: false,
+                    slug: "mediafiles",
                     breadcrumbs: [
-                    ],
-                },
-            },
-            {
-                path: "assets",
-                name: RouteNames.Assets,
-                component: "Home",
-                meta: {
-                    type: Collection.Entities,
-                    entityType: Entitytyping.Asset,
-                    breadcrumbs: [
+                        {
+                            relation: `relationValues.isMediafileFor.key`,
+                            key: [`elody:1|identifiers`],
+                            entityType: Entitytyping.Asset,
+                        },
+                        {
+                            overviewPage: RouteNames.Mediafiles,
+                            title: "navigation.mediafiles",
+                        },
                     ],
                 },
             },
         ]
     },
-    { path: "/home", redirect: "/" },
+    {path: "/asset", redirect: "/assets"},
+    {path: "/home", redirect: "/assets"},
+    {path: "/", redirect: "/assets"},
 ];

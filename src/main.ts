@@ -1,21 +1,19 @@
-import { mediafileModule } from "mediafile-module";
-import { advancedFilterModule } from "advanced-filter-module";
-import { savedSearchModule } from "saved-search-module";
 import {
   podiumnetModule,
   podiumnetAppConfig,
   podiumnetTranslations,
   podiumnetFields,
-  podiumnetElodyTypeCollectionMapping,
+  podiumnetTypeCollectionMapping,
   podiumnetTypePillLabelMapping,
 } from "./podiumnetModule";
 import start, { type ElodyModuleConfig } from "base-graphql";
+import { mediafileModule } from "mediafile-module";
+import { savedSearchModule } from "saved-search-module";
 import { podiumnetPermissions } from "./podiumnetPermissions";
 
 const podiumnetElodyConfig: ElodyModuleConfig = {
   modules: [
     mediafileModule,
-    advancedFilterModule,
     savedSearchModule,
     podiumnetModule,
   ],
@@ -28,7 +26,7 @@ start(
   podiumnetTranslations,
   [],
   podiumnetFields,
-  podiumnetElodyTypeCollectionMapping,
+  podiumnetTypeCollectionMapping,
   podiumnetPermissions,
   undefined,
   undefined,
