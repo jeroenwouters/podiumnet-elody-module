@@ -6,19 +6,18 @@ import {
 
 export const podiumnetRoutes = [
     {
-        path: "/assets",
+        path: "/",
         name: RouteNames.Home,
         component: "HomeWrapper",
         meta: {
             requiresAuth: false,
             type: Collection.Entities,
-            entityType: Entitytyping.Asset,
+            entityType: Entitytyping.Production,
             hasEditMetadataButton: false,
-            slug: "assets",
             breadcrumbs: [
                 {
-                    overviewPage: RouteNames.Assets,
-                    title: "navigation.assets",
+                    overviewPage: RouteNames.Productions,
+                    title: "navigation.productions",
                 },
             ],
         },
@@ -30,6 +29,22 @@ export const podiumnetRoutes = [
                 meta: {},
             },
             {
+                path: "/productions",
+                name: RouteNames.Productions,
+                component: "Home",
+                meta: {
+                    requiresAuth: false,
+                    type: Collection.Entities,
+                    entityType: Entitytyping.Production,
+                    breadcrumbs: [
+                        {
+                            overviewPage: RouteNames.Productions,
+                            title: "navigation.productions",
+                        },
+                    ],
+                },
+            },
+            {
                 path: "/assets",
                 name: RouteNames.Assets,
                 component: "Home",
@@ -38,8 +53,11 @@ export const podiumnetRoutes = [
                     type: Collection.Entities,
                     entityType: Entitytyping.Asset,
                     hasEditMetadataButton: false,
-                    slug: "assets",
                     breadcrumbs: [
+                        {
+                            key: ["elody:1|relations.hasAsset.key"],
+                            entityType: Entitytyping.Production,
+                        },
                         {
                             overviewPage: RouteNames.Assets,
                             title: "navigation.assets",
@@ -55,11 +73,9 @@ export const podiumnetRoutes = [
                     type: Collection.Entities,
                     entityType: Entitytyping.Mediafile,
                     hasEditMetadataButton: false,
-                    slug: "mediafiles",
                     breadcrumbs: [
                         {
-                            relation: `relationValues.isMediafileFor.key`,
-                            key: [`elody:1|identifiers`],
+                            key: ["elody:1|relations.hasMediafile.key"],
                             entityType: Entitytyping.Asset,
                         },
                         {
@@ -71,7 +87,7 @@ export const podiumnetRoutes = [
             },
         ]
     },
-    {path: "/asset", redirect: "/assets"},
-    {path: "/home", redirect: "/assets"},
-    {path: "/", redirect: "/assets"},
+    {path: "/production", redirect: "/productions"},
+    {path: "/home", redirect: "/productions"},
+    {path: "/", redirect: "/productions"},
 ];

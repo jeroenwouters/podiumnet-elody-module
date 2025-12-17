@@ -1,27 +1,6 @@
 import { gql } from "graphql-modules";
 
 export const podiumnetQueries = gql`
-    fragment minimalLinkedMedia on Media {
-        ...minimalBaseEntity
-        intialValues {
-            title: keyValue(key: "title", source: metadata)
-        }
-        allowedViewModes {
-            viewModes(input: [
-                { viewMode: ViewModesList }
-                { viewMode: ViewModesGrid }
-            ]) {
-                ...viewModes
-            }
-        }
-        teaserMetadata {
-            title: metaData {
-                label(input: "metadata.labels.title")
-                key(input: "title")
-            }
-        }
-    }
-
     fragment typePillsIntialValues on IntialValues {
         type: keyValue(key: "type", source: typePillLabel, index: 0, formatter: "pill|auto")
     }
@@ -48,6 +27,9 @@ export const podiumnetQueries = gql`
         }
         ... on Asset {
             ...fullAsset
+        }
+        ... on Production {
+            ...fullProduction
         }
     }
 
@@ -86,6 +68,9 @@ export const podiumnetQueries = gql`
                 }
                 ... on Asset {
                     ...minimalAsset
+                }
+                ... on Production {
+                    ...minimalProduction
                 }
             }
         }
@@ -134,6 +119,9 @@ export const podiumnetQueries = gql`
             }
             ... on Asset {
                 ...filtersForAsset
+            }
+            ... on Production {
+                ...filtersForProduction
             }
         }
     }
@@ -193,12 +181,6 @@ export const podiumnetQueries = gql`
         ) {
             _id
             filename
-        }
-    }
-
-    mutation getMediaRelationedWithMediafFile($mediaFileId: String!) {
-        getMediaRelationedWithMediafFile(mediaFileId: $mediaFileId) {
-            ...minimalLinkedMedia
         }
     }
 
@@ -268,6 +250,23 @@ export const podiumnetQueries = gql`
         Menu(name: $name) {
             menu {
                 name
+                productions: menuItem(
+                    label: "navigation.productions"
+                    entityType: production
+                    typeLink: { route: { destination: "productions" } }
+                    icon: Palette
+                    requiresAuth: true
+                ) {
+                    label
+                    entityType
+                    typeLink {
+                        route {
+                            destination
+                        }
+                    }
+                    icon
+                    requiresAuth
+                }
                 assets: menuItem(
                     label: "navigation.assets"
                     entityType: asset
@@ -286,7 +285,7 @@ export const podiumnetQueries = gql`
                     requiresAuth
                 }
                 mediafile: menuItem(
-                    label: "navigation.mediafile"
+                    label: "navigation.mediafiles"
                     entityType: mediafile
                     typeLink: { route: { destination: "mediafiles" } }
                     icon: Image
@@ -402,16 +401,13 @@ export const podiumnetQueries = gql`
                                 }
                             }
                         }
-                    }
-                    subMenu(name: "sub-menu-create") {
-                        name
-                        asset: menuItem(
-                            label: "navigation.create-asset"
-                            entityType: asset
+                        productions: menuItem(
+                            label: "navigation.create-production"
+                            entityType: production
                             typeLink: {
                                 modal: {
                                     typeModal: DynamicForm
-                                    formQuery: "GetAssetCreateForm"
+                                    formQuery: "GetProductionCreateForm"
                                     neededPermission: cancreate
                                 }
                             }
@@ -471,6 +467,9 @@ export const podiumnetQueries = gql`
             ... on Asset {
                 ...assetSortOptions
             }
+            ... on Production {
+                ...productionSortOptions
+            }
         }
     }
 
@@ -507,6 +506,9 @@ export const podiumnetQueries = gql`
             }
             ... on Asset {
                 ...assetBulkOperations
+            }
+            ... on Production {
+                ...productionBulkOperations
             }
             ... on MediaFileEntity {
                 ...mediafileBulkOperations
@@ -605,6 +607,9 @@ export const podiumnetQueries = gql`
         PreviewComponents(entityType: $entityType) {
             ... on Asset {
                 ...previewForAsset
+            }
+            ... on Production {
+                ...previewForProduction
             }
             ... on MediaFileEntity {
                 ...previewForMediafile

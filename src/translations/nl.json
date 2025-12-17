@@ -1,26 +1,49 @@
 {
   "nl": {
     "entity-translations": {
+      "singular": {
+        "asset": "asset",
+        "production": "productie"
+
+      },
       "plural": {
+        "asset": "assets",
+        "production": "producties"
       }
     },
     "element-labels": {
+      "completeness-overview-element": "Compleetheidsoverzicht",
+      "assets-element": "Assets"
+    },
+    "panel-labels": {
+      "production-info": "Productie info",
+      "mediafile-info": "Mediafile info",
+      "auth": "Authenticatie",
+      "fetch": "Ophalen",
+      "mappings": "Mappings",
+      "sources": "Bronnen",
+      "targets": "Doelen"
     },
     "metadata": {
       "labels": {
         "id": "Id",
-        "title": "Titel"
+        "title": "Titel",
+        "production": "Productie",
+        "description": "Beschrijving"
       }
     },
     "navigation": {
       "mediafiles": "Mediafiles",
       "create-mediafile": "Mediafile aanmaken",
       "create-asset": "Asset",
-      "assets": "Assets"
+      "assets": "Assets",
+      "create-production": "Productie",
+      "productions": "Producties"
     },
     "bulk-operations": {
       "create-mediafile": "Mediafile aanmaken",
       "create-asset": "Maak asset aan",
+      "create-production": "Maak Productie aan",
       "add-asset": "Voeg een asset toe",
       "delete-labels": {
         "asset": "asset",
@@ -37,14 +60,6 @@
       "delete-entities": {
         "label": "Verwijder ook deze gerelateerde entiteiten"
       }
-    },
-    "panel-labels": {
-      "mediafile-info": "Mediafile-info",
-      "auth": "Authenticatie",
-      "fetch": "Ophalen",
-      "mappings": "Mappings",
-      "sources": "Bronnen",
-      "targets": "Doelen"
     },
     "window-element-labels": {
       "info-window": "Info"

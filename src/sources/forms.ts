@@ -3,6 +3,7 @@ import {
     InputField,
     InputFieldTypes,
     DamsIcons,
+    Entitytyping
 } from "../../generated-types/type-defs";
 
 export const podiumnetFields: { [key: string]: InputField } = {
@@ -21,5 +22,39 @@ export const podiumnetFields: { [key: string]: InputField } = {
             {icon: DamsIcons.NoIcon, label: "Video", value: "Video"},
             {icon: DamsIcons.NoIcon, label: "Muziekfragmenten", value: "Muziekfragmenten"},
         ],
+    },
+    productionStatusTypeField: {
+        type: InputFieldTypes.DropdownSingleselectMetadata,
+        options: [
+            {icon: DamsIcons.NoIcon, label: "Draft", value: "Draft"},
+            {icon: DamsIcons.NoIcon, label: "Klaar", value: "Klaar"},
+            {icon: DamsIcons.NoIcon, label: "Gearchiveerd", value: "Gearchiveerd"},
+        ],
+    },
+    internalResponsibleTypeField: {
+        type: InputFieldTypes.DropdownSingleselectRelations,
+        entityType: Entitytyping.User,
+        relationType: "hasUser",
+        advancedFilterInputForRetrievingOptions: [
+            {
+                type: AdvancedFilterTypes.Text,
+                key: ["dams:1|metadata.email.value"],
+                value: "*",
+                match_exact: false,
+            },
+            {
+                type: AdvancedFilterTypes.Selection,
+                key: "type",
+                value: [Entitytyping.User],
+                match_exact: true,
+            },
+        ],
+        relationFilter: {
+            type: AdvancedFilterTypes.Selection,
+            key: ["dams:1|identifiers"],
+            value: "$relationValues.hasUser.key",
+            match_exact: true,
+            item_types: [Entitytyping.User],
+        },
     },
 };

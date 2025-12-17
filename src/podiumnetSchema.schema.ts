@@ -1,145 +1,166 @@
 import { gql } from "graphql-modules";
 
 export const podiumnetSchema = gql`
-  enum RouteNames {
-    Mediafiles
-    Users
-    Assets
-  }
+    enum RouteNames {
+        Mediafiles
+        Users
+        Assets
+        Productions
+    }
 
-  enum Entitytyping {
-    mediafile
-    user
-    tenant
-    asset  
-  }
+    enum Entitytyping {
+        mediafile
+        user
+        tenant
+        asset
+        production
+    }
 
-  #  enum KeyValueSource {
-  #
-  #  }
+    #  enum KeyValueSource {
+    #
+    #  }
 
-  #  enum CreateableEntityTypes {
-  #
-  #  }
+    #  enum CreateableEntityTypes {
+    #
+    #  }
 
-  enum UploadEntityTypes {
-    none
-  }
+    enum UploadEntityTypes {
+        none
+    }
 
-  # Merge with BaseFieldType from baseSchema
-   enum BaseFieldType {
-       hasWriterField
-       assetStatusTypeField
-       assetTypeTypeField
-   }
+    # Merge with BaseFieldType from baseSchema
+    enum BaseFieldType {
+        hasWriterField
+        assetStatusTypeField
+        assetTypeTypeField
+        productionStatusTypeField
+        internalResponsibleTypeField
+    }
 
-  interface Entity {
-    id: String!
-    uuid: String!
-    type: String!
-    teaserMetadata: teaserMetadata
-    intialValues: IntialValues!
-    allowedViewModes: AllowedViewModes
-    relationValues: JSON
-    entityView: ColumnList!
-    advancedFilters: AdvancedFilters
-    sortOptions: SortOptions
-    bulkOperationOptions: BulkOperationOptions
-    deleteQueryOptions: DeleteQueryOptions
-    mapElement: MapElement
-  }
+    interface Entity {
+        id: String!
+        uuid: String!
+        type: String!
+        teaserMetadata: teaserMetadata
+        intialValues: IntialValues!
+        allowedViewModes: AllowedViewModes
+        relationValues: JSON
+        entityView: ColumnList!
+        advancedFilters: AdvancedFilters
+        sortOptions: SortOptions
+        bulkOperationOptions: BulkOperationOptions
+        deleteQueryOptions: DeleteQueryOptions
+        mapElement: MapElement
+    }
 
-  type Mediafile implements Entity {
-    id: String!
-    uuid: String!
-    type: String!
-    teaserMetadata: teaserMetadata
-    intialValues: IntialValues!
-    allowedViewModes: AllowedViewModes
-    relationValues: JSON
-    entityView: ColumnList!
-    advancedFilters: AdvancedFilters
-    sortOptions: SortOptions
-    bulkOperationOptions: BulkOperationOptions
-    previewComponent: PreviewComponent
-    deleteQueryOptions: DeleteQueryOptions
-    mapElement: MapElement
-  }
-  
-  type Asset implements Entity {
-    id: String!
-    uuid: String!
-    type: String!
-    teaserMetadata: teaserMetadata
-    intialValues: IntialValues!
-    allowedViewModes: AllowedViewModes
-    relationValues: JSON
-    entityView: ColumnList!
-    advancedFilters: AdvancedFilters
-    sortOptions: SortOptions
-    bulkOperationOptions: BulkOperationOptions
-    previewComponent: PreviewComponent
-    deleteQueryOptions: DeleteQueryOptions
-    mapElement: MapElement
-  }
+    type Mediafile implements Entity {
+        id: String!
+        uuid: String!
+        type: String!
+        teaserMetadata: teaserMetadata
+        intialValues: IntialValues!
+        allowedViewModes: AllowedViewModes
+        relationValues: JSON
+        entityView: ColumnList!
+        advancedFilters: AdvancedFilters
+        sortOptions: SortOptions
+        bulkOperationOptions: BulkOperationOptions
+        previewComponent: PreviewComponent
+        deleteQueryOptions: DeleteQueryOptions
+        mapElement: MapElement
+    }
 
-  type User implements Entity {
-    id: String!
-    uuid: String!
-    type: String!
-    teaserMetadata: teaserMetadata
-    intialValues: IntialValues!
-    allowedViewModes: AllowedViewModes
-    relationValues: JSON
-    entityView: ColumnList!
-    advancedFilters: AdvancedFilters
-    sortOptions: SortOptions
-    bulkOperationOptions: BulkOperationOptions
-    previewComponent: PreviewComponent
-    deleteQueryOptions: DeleteQueryOptions
-    mapElement: MapElement
-  }
+    type Asset implements Entity {
+        id: String!
+        uuid: String!
+        type: String!
+        teaserMetadata: teaserMetadata
+        intialValues: IntialValues!
+        allowedViewModes: AllowedViewModes
+        relationValues: JSON
+        entityView: ColumnList!
+        advancedFilters: AdvancedFilters
+        sortOptions: SortOptions
+        bulkOperationOptions: BulkOperationOptions
+        previewComponent: PreviewComponent
+        deleteQueryOptions: DeleteQueryOptions
+        mapElement: MapElement
+    }
+    
+    type Production implements Entity {
+        id: String!
+        uuid: String!
+        type: String!
+        teaserMetadata: teaserMetadata
+        intialValues: IntialValues!
+        allowedViewModes: AllowedViewModes
+        relationValues: JSON
+        entityView: ColumnList!
+        advancedFilters: AdvancedFilters
+        sortOptions: SortOptions
+        bulkOperationOptions: BulkOperationOptions
+        previewComponent: PreviewComponent
+        deleteQueryOptions: DeleteQueryOptions
+        mapElement: MapElement
+    }
 
-  type Tenant implements Entity {
-    id: String!
-    uuid: String!
-    type: String!
-    teaserMetadata: teaserMetadata
-    title: [MetadataAndRelation]
-    intialValues: IntialValues!
-    allowedViewModes: AllowedViewModes
-    relationValues: JSON
-    entityView: ColumnList!
-    advancedFilters: AdvancedFilters
-    sortOptions: SortOptions
-    bulkOperationOptions: BulkOperationOptions
-    deleteQueryOptions: DeleteQueryOptions
-    mapElement: MapElement
-  }
+    type User implements Entity {
+        id: String!
+        uuid: String!
+        type: String!
+        teaserMetadata: teaserMetadata
+        intialValues: IntialValues!
+        allowedViewModes: AllowedViewModes
+        relationValues: JSON
+        entityView: ColumnList!
+        advancedFilters: AdvancedFilters
+        sortOptions: SortOptions
+        bulkOperationOptions: BulkOperationOptions
+        previewComponent: PreviewComponent
+        deleteQueryOptions: DeleteQueryOptions
+        mapElement: MapElement
+    }
 
-  #  Should be removed at some point
-  type Media implements Entity {
-    id: String!
-    uuid: String!
-    type: String!
-    teaserMetadata: teaserMetadata
-    intialValues: IntialValues!
-    allowedViewModes: AllowedViewModes
-    relationValues: JSON
-    entityView: ColumnList!
-    advancedFilters: AdvancedFilters
-    sortOptions: SortOptions
-    bulkOperationOptions: BulkOperationOptions
-    previewComponent: PreviewComponent
-    deleteQueryOptions: DeleteQueryOptions
-    mapElement: MapElement
-  }
+    type Tenant implements Entity {
+        id: String!
+        uuid: String!
+        type: String!
+        teaserMetadata: teaserMetadata
+        title: [MetadataAndRelation]
+        intialValues: IntialValues!
+        allowedViewModes: AllowedViewModes
+        relationValues: JSON
+        entityView: ColumnList!
+        advancedFilters: AdvancedFilters
+        sortOptions: SortOptions
+        bulkOperationOptions: BulkOperationOptions
+        deleteQueryOptions: DeleteQueryOptions
+        mapElement: MapElement
+    }
 
-  type Query {
-    BulkOperationsRelationForm: WindowElement!
-  }
+    #  Should be removed at some point
+    type Media implements Entity {
+        id: String!
+        uuid: String!
+        type: String!
+        teaserMetadata: teaserMetadata
+        intialValues: IntialValues!
+        allowedViewModes: AllowedViewModes
+        relationValues: JSON
+        entityView: ColumnList!
+        advancedFilters: AdvancedFilters
+        sortOptions: SortOptions
+        bulkOperationOptions: BulkOperationOptions
+        previewComponent: PreviewComponent
+        deleteQueryOptions: DeleteQueryOptions
+        mapElement: MapElement
+    }
 
-  type Mutation {
-    CreateEntity(entity: EntityInput!): Entity
-  }
+    type Query {
+        BulkOperationsRelationForm: WindowElement!
+    }
+
+    type Mutation {
+        CreateEntity(entity: EntityInput!): Entity
+    }
 `;

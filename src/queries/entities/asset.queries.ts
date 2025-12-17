@@ -5,10 +5,16 @@ export const assetQueries = gql`
     fragment minimalAsset on Asset {
         ...minimalBaseEntity
         intialValues {
+            typePillLabel: keyValue(key: "type", source: typePillLabel, index: 0, formatter: "pill|auto")
             title: keyValue(key: "title", source: metadata)
-            date_updated: keyValue(key: "date_updated", source: root)
+            status: keyValue(key: "status", source: metadata, formatter: "pill")
+            dateAvailable: keyValue(key: "dateAvailable", source: metadata)
         }
         teaserMetadata {
+            typePillLabel: metaData {
+                label(input: "Type")
+                key(input: "typePillLabel")
+            }
             thumbnail: thumbnail {
                 filename(fromMediafile: true)
             }
@@ -16,14 +22,23 @@ export const assetQueries = gql`
                 label(input: "metadata.labels.title")
                 key(input: "title")
             }
+            status: metaData {
+                label(input: "Asset status")
+                key(input: "status")
+            }
+            dateAvailable: metaData {
+                label(input: "Datum beschikbaar")
+                key(input: "dateAvailable")
+            }
         }
     }
 
     fragment fullAsset on Asset {
         intialValues {
+            typePillLabel: keyValue(key: "type", source: typePillLabel, index: 0, formatter: "pill|auto")
             title: keyValue(key: "title", source: metadata)
             description: keyValue(key: "description", source: metadata)
-            assetStatus: keyValue(key: "assetStatus", source: metadata)
+            status: keyValue(key: "status", source: metadata, formatter: "pill")
             assetType: keyValue(key: "assetType", source: metadata)
             dateAvailable: keyValue(key: "dateAvailable", source: metadata)
             availableForVenues: keyValue(key: "availableForVenues", source: metadata)
@@ -81,9 +96,9 @@ export const assetQueries = gql`
                                     ...inputfield
                                 }
                             }
-                            assetStatus: metaData {
+                            status: metaData {
                                 label(input: "Asset status")
-                                key(input: "assetStatus")
+                                key(input: "status")
                                 inputField(type: assetStatusTypeField) {
                                     ...inputfield 
                                 }
@@ -142,9 +157,9 @@ export const assetQueries = gql`
                             }
                         }
                     }
-                    assetStatus: metaData {
+                    status: metaData {
                         label(input: "Asset status")
-                        key(input: "assetStatus")
+                        key(input: "status")
                         inputField(type: assetStatusTypeField) {
                             ...inputfield
                         }
@@ -194,12 +209,13 @@ export const assetQueries = gql`
                 label: "metadata.labels.title"
                 isDisplayedByDefault: true
             ) { type key label isDisplayedByDefault }
-            assetStatus: advancedFilter(
+            status: advancedFilter(
                 type: selection
-                key: ["dams:1|metadata.assetStatus.value"]
+                key: ["dams:1|metadata.status.value"]
                 label: "Asset status"
                 isDisplayedByDefault: true
             ) { type key label isDisplayedByDefault }
+            ...entityAuditFilters
             type: advancedFilter(type: type) {
                 type
                 defaultValue(value: "asset")

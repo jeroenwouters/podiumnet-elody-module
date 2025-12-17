@@ -48,6 +48,7 @@ export const mediafileQueries = gql`
 
     fragment fullMediafile on MediaFileEntity {
         intialValues {
+            typePillLabel: keyValue(key: "type", source: typePillLabel, index: 0, formatter: "pill|auto")
             title: keyValue(key: "original_filename", source: root)
             filename: keyValue(key: "filename", source: root)
             original_filename: keyValue(key: "original_filename", source: root)
@@ -193,20 +194,6 @@ export const mediafileQueries = gql`
                 hidden(value: true)
                 defaultValue(value: "original")
             }
-            nr_of_media_linked: advancedFilter(
-                type: number
-                key: "properties.belongs_to.value"
-                aggregation: "size"
-                label: "metadata.labels.number-of-media-linked"
-                isDisplayedByDefault: true
-            ) {
-                type
-                key
-                aggregation
-                label
-                isDisplayedByDefault
-                tooltip(value: true)
-            }
             filename: advancedFilter(
                 type: text
                 key: ["podiumnet:1|properties.title.value"]
@@ -229,37 +216,7 @@ export const mediafileQueries = gql`
                 label
                 isDisplayedByDefault
             }
-            keyword: advancedFilter(
-                type: selection
-                key: ["podiumnet:1|properties.has_keyword.value"]
-                label: "metadata.labels.keyword"
-                isDisplayedByDefault: true
-                useNewWayToFetchOptions: true
-                selectionOption: autocomplete
-                advancedFilterInputForRetrievingOptions: [
-                    {
-                        type: text
-                        key: ["podiumnet:1|properties.title.value"]
-                        value: "*"
-                        match_exact: false
-                    }
-                    { type: type, value: "keyword" }
-                ]
-            ) {
-                type
-                key
-                label
-                isDisplayedByDefault
-                selectionOption
-                useNewWayToFetchOptions
-                advancedFilterInputForRetrievingOptions {
-                    type
-                    value
-                    key
-                    match_exact
-                }
-                tooltip(value: true)
-            }
+            ...entityAuditFilters
             type: advancedFilter(type: type) {
                 type
                 defaultValue(value: "mediafile")
