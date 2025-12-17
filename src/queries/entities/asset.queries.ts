@@ -42,6 +42,7 @@ export const assetQueries = gql`
             assetType: keyValue(key: "assetType", source: metadata)
             dateAvailable: keyValue(key: "dateAvailable", source: metadata)
             availableForVenues: keyValue(key: "availableForVenues", source: metadata)
+            links: keyValue(key: "links", source: metadata)
             ...entityAuditIntialValues
         }
 
@@ -107,7 +108,7 @@ export const assetQueries = gql`
                                 }
                             }
                             assetType: metaData {
-                                label(input: "Asset type")
+                                label(input: "metadata.labels.asset-type")
                                 key(input: "assetType")
                                 inputField(type: assetTypeTypeField) {
                                     ...inputfield
@@ -127,6 +128,13 @@ export const assetQueries = gql`
                                 label(input: "Beschikbaar voor podiumhuizen")
                                 key(input: "availableForVenues")
                                 inputField(type: baseCheckbox) {
+                                    ...inputfield 
+                                }
+                            }
+                            links: metaData {
+                                label(input: "Links")
+                                key(input: "links")
+                                inputField(type: baseTextField) {
                                     ...inputfield 
                                 }
                             }
@@ -224,9 +232,79 @@ export const assetQueries = gql`
             status: advancedFilter(
                 type: selection
                 key: ["dams:1|metadata.status.value"]
-                label: "Asset status"
+                label: "metadata.labels.status"
+                useNewWayToFetchOptions: true
+                filterOptionsMapping: {
+                    label: "intialValues.status"
+                    value: "intialValues.status"
+                }
                 isDisplayedByDefault: true
-            ) { type key label isDisplayedByDefault }
+                advancedFilterInputForRetrievingOptions: [
+                    {
+                        type: text
+                        key: ["dams:1|metadata.status.value"]
+                        distinct_by: "metadata.status.value"
+                        value: "*"
+                    }
+                    { type: type, value: "asset" }
+                ]
+            ) {
+                type
+                key
+                label
+                isDisplayedByDefault
+                advancedFilterInputForRetrievingOptions {
+                    type
+                    key
+                    value
+                    distinct_by
+                    match_exact
+                }
+                filterOptionsMapping {
+                    label
+                    value
+                }
+                useNewWayToFetchOptions
+                tooltip(value: true)
+            }
+            assetType: advancedFilter(
+                type: selection
+                key: ["dams:1|metadata.assetType.value"]
+                label: "metadata.labels.asset-type"
+                useNewWayToFetchOptions: true
+                filterOptionsMapping: {
+                    label: "intialValues.assetType"
+                    value: "intialValues.assetType"
+                }
+                isDisplayedByDefault: true
+                advancedFilterInputForRetrievingOptions: [
+                    {
+                        type: text
+                        key: ["dams:1|metadata.assetType.value"]
+                        distinct_by: "metadata.assetType.value"
+                        value: "*"
+                    }
+                    { type: type, value: "asset" }
+                ]
+            ) {
+                type
+                key
+                label
+                isDisplayedByDefault
+                advancedFilterInputForRetrievingOptions {
+                    type
+                    key
+                    value
+                    distinct_by
+                    match_exact
+                }
+                filterOptionsMapping {
+                    label
+                    value
+                }
+                useNewWayToFetchOptions
+                tooltip(value: true)
+            }
             ...entityAuditFilters
             type: advancedFilter(type: type) {
                 type

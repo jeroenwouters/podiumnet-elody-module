@@ -13,7 +13,7 @@
     },
     "element-labels": {
       "completeness-overview-element": "Compleetheidsoverzicht",
-      "assets-element": "Assets"
+      "all-assets-element": "Alle assets"
     },
     "panel-labels": {
       "production-info": "Productie info",
@@ -30,7 +30,9 @@
         "title": "Titel",
         "production": "Productie",
         "description": "Beschrijving",
-        "filename": "Bestandsnaam"
+        "filename": "Bestandsnaam",
+        "todo": "Todo",
+        "asset-type": "Asset type"
       }
     },
     "navigation": {

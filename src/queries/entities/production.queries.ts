@@ -50,17 +50,126 @@ export const productionQueries = gql`
             column {
                 size(size: seventy)
                 elements {
-                    TodoAssets: entityListElement {
+                    completenessOverview: windowElement {
                         label(input: "element-labels.completeness-overview-element")
-                        isCollapsed(input: false)
-                        entityTypes(input: [asset])
-                        relationType: label(input: "hasAsset")
-                        searchInputType(input: "AdvancedInputType")
-                        customQuery(input: "GetTodoAssets")
-                        customQueryFilters(input: "GetTodoAssetsInProductionFilters")
+                        expandButtonOptions {
+                            shown(input: true)
+                        }
+                        Affiches: panels {
+                            label(input: "Affiches")
+                            panelType(input: metadata)
+                            isCollapsed(input: true)
+                            isEditable(input: true)
+                            canBeMultipleColumns(input: true)
+                            Affiches: entityListElement {
+                                label(input: "Affiches")
+                                isCollapsed(input: false)
+                                entityTypes(input: [asset])
+                                relationType: label(input: "hasAsset")
+                                searchInputType(input: "AdvancedInputType")
+                                customQuery(input: "GetAssetsInCompletenessOverview")
+                                customQueryFilters(input: "GetAssetsWithTypeAfficheFilters")
+                            }
+                        }
+                        Scenebeelden: panels {
+                            label(input: "Scènebeelden")
+                            panelType(input: metadata)
+                            isCollapsed(input: true)
+                            isEditable(input: true)
+                            canBeMultipleColumns(input: true)
+                            Scenebeelden: entityListElement {
+                                label(input: "Scènebeelden")
+                                isCollapsed(input: false)
+                                entityTypes(input: [asset])
+                                relationType: label(input: "hasAsset")
+                                searchInputType(input: "AdvancedInputType")
+                                customQuery(input: "GetAssetsInCompletenessOverview")
+                                customQueryFilters(input: "GetAssetsWithTypeSceneFilters")
+                            }
+                        }
+                        Muziekfragmenten: panels {
+                            label(input: "Muziekfragmenten")
+                            panelType(input: metadata)
+                            isCollapsed(input: true)
+                            isEditable(input: true)
+                            canBeMultipleColumns(input: true)
+                            Muziekfragmenten: entityListElement {
+                                label(input: "Muziekfragmenten")
+                                isCollapsed(input: false)
+                                entityTypes(input: [asset])
+                                relationType: label(input: "hasAsset")
+                                searchInputType(input: "AdvancedInputType")
+                                customQuery(input: "GetAssetsInCompletenessOverview")
+                                customQueryFilters(input: "GetAssetsWithTypeMusicFilters")
+                            }
+                        }
+                        Trailer: panels {
+                            label(input: "Trailer")
+                            panelType(input: metadata)
+                            isCollapsed(input: true)
+                            isEditable(input: true)
+                            canBeMultipleColumns(input: true)
+                            Trailer: entityListElement {
+                                label(input: "Trailer")
+                                isCollapsed(input: false)
+                                entityTypes(input: [asset])
+                                relationType: label(input: "hasAsset")
+                                searchInputType(input: "AdvancedInputType")
+                                customQuery(input: "GetAssetsInCompletenessOverview")
+                                customQueryFilters(input: "GetAssetsWithTypeTrailerFilters")
+                            }
+                        }
+                        Pers: panels {
+                            label(input: "Pers")
+                            panelType(input: metadata)
+                            isCollapsed(input: true)
+                            isEditable(input: true)
+                            canBeMultipleColumns(input: true)
+                            Pers: entityListElement {
+                                label(input: "Pers")
+                                isCollapsed(input: false)
+                                entityTypes(input: [asset])
+                                relationType: label(input: "hasAsset")
+                                searchInputType(input: "AdvancedInputType")
+                                customQuery(input: "GetAssetsInCompletenessOverview")
+                                customQueryFilters(input: "GetAssetsWithTypePersFilters")
+                            }
+                        }
+                        Omkadering: panels {
+                            label(input: "Omkadering")
+                            panelType(input: metadata)
+                            isCollapsed(input: true)
+                            isEditable(input: true)
+                            canBeMultipleColumns(input: true)
+                            Omkadering: entityListElement {
+                                label(input: "Omkadering")
+                                isCollapsed(input: false)
+                                entityTypes(input: [asset])
+                                relationType: label(input: "hasAsset")
+                                searchInputType(input: "AdvancedInputType")
+                                customQuery(input: "GetAssetsInCompletenessOverview")
+                                customQueryFilters(input: "GetAssetsWithTypeOmkaderingFilters")
+                            }
+                        }
+                        SocialMedia: panels {
+                            label(input: "Social media posts")
+                            panelType(input: metadata)
+                            isCollapsed(input: true)
+                            isEditable(input: true)
+                            canBeMultipleColumns(input: true)
+                            SocialMedia: entityListElement {
+                                label(input: "Social media posts")
+                                isCollapsed(input: false)
+                                entityTypes(input: [asset])
+                                relationType: label(input: "hasAsset")
+                                searchInputType(input: "AdvancedInputType")
+                                customQuery(input: "GetAssetsInCompletenessOverview")
+                                customQueryFilters(input: "GetAssetsWithTypeSocialMediaFilters")
+                            }
+                        }
                     }
                     Assets: entityListElement {
-                        label(input: "element-labels.assets-element")
+                        label(input: "element-labels.all-assets-element")
                         isCollapsed(input: false)
                         entityTypes(input: [asset])
                         relationType: label(input: "hasAsset")
@@ -345,51 +454,6 @@ export const productionQueries = gql`
                 }
             }
         }
-    }    
-    
-    query GetTodoAssetsInProductionFilters($entityType: String!) {
-        EntityTypeFilters(type: $entityType) {
-            advancedFilters {
-                type: advancedFilter(type: type) {
-                    type
-                    defaultValue(value: "asset")
-                    hidden(value: true)
-                }
-                relation: advancedFilter(
-                    type: selection
-                    key: ["elody:1|identifiers"]
-                    operator: and
-                ) {
-                    type
-                    key
-                    defaultValue(value: "$entity.relationValues.hasAsset.key")
-                    hidden(value: true)
-                    operator
-                }
-                isConcept: advancedFilter(
-                    type: text
-                    key: ["elody:1|metadata.status.value"]
-                    operator: or
-                ) {
-                    type
-                    key
-                    hidden(value: true)
-                    defaultValue(value: "Concept")
-                    operator
-                }
-                isVerwacht: advancedFilter(
-                    type: text
-                    key: ["elody:1|metadata.status.value"]
-                    operator: or
-                ) {
-                    type
-                    key
-                    hidden(value: true)
-                    defaultValue(value: "Verwacht")
-                    operator
-                }
-            }
-        }
     }
 
     query GetBulkOperationsForAssetInProduction {
@@ -498,7 +562,7 @@ export const productionQueries = gql`
         }
     }
     
-    query GetTodoAssets(
+    query GetAssetsInCompletenessOverview(
         $type: Entitytyping!
         $limit: Int
         $skip: Int
@@ -506,6 +570,7 @@ export const productionQueries = gql`
         $advancedSearchValue: [FilterInput]
         $advancedFilterInputs: [AdvancedFilterInput!]!
         $searchInputType: SearchInputType
+        $userUuid: String!
     ) {
         Entities(
             type: $type
@@ -527,6 +592,12 @@ export const productionQueries = gql`
                         typePillLabel: keyValue(key: "type", source: typePillLabel, index: 0, formatter: "pill|auto")
                         title: keyValue(key: "title", source: metadata)
                         status: keyValue(key: "status", source: metadata, formatter: "pill")
+                        todo: keyValue(
+                            key: "todo"
+                            source: relationMetadata
+                            uuid: $userUuid
+                            relationKey: "hasAsset"
+                        )
                     }
                     teaserMetadata {
                         typePillLabel: metaData {
@@ -544,6 +615,14 @@ export const productionQueries = gql`
                             label(input: "Asset status")
                             key(input: "status")
                         }
+                        todo: relationMetaData {
+                            label(input: "metadata.labels.todo")
+                            key(input: "todo")
+                            inputField(type: baseTextField) {
+                                ...inputfield
+                            }
+                            __typename
+                        }
                         contextMenuActions {
                             doLinkAction {
                                 label(input: "contextMenu.contextMenuLinkAction.followLink")
@@ -553,6 +632,342 @@ export const productionQueries = gql`
                         }
                     }
                     __typename
+                }
+            }
+        }
+    }
+
+    query GetAssetsWithTypeAfficheFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(
+                    type: type
+                    operator: and
+                ) {
+                    type
+                    defaultValue(value: "asset")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasAsset.key")
+                    hidden(value: true)
+                    operator
+                }
+                assetType: advancedFilter(
+                    type: text
+                    key: ["elody:1|metadata.assetType.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: "Affichebeeld")
+                    operator
+                }
+                unfinishedStatus: advancedFilter(
+                    type: selection
+                    key: ["elody:1|metadata.status.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: ["Concept", "Verwacht"])
+                    operator
+                }
+            }
+        }
+    }
+
+    query GetAssetsWithTypeSceneFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(
+                    type: type
+                    operator: and
+                ) {
+                    type
+                    defaultValue(value: "asset")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasAsset.key")
+                    hidden(value: true)
+                    operator
+                }
+                assetType: advancedFilter(
+                    type: text
+                    key: ["elody:1|metadata.assetType.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: "Scènebeelden")
+                    operator
+                }
+                unfinishedStatus: advancedFilter(
+                    type: selection
+                    key: ["elody:1|metadata.status.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: ["Concept", "Verwacht"])
+                    operator
+                }
+            }
+        }
+    }
+    
+    query GetAssetsWithTypeMusicFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(
+                    type: type
+                    operator: and
+                ) {
+                    type
+                    defaultValue(value: "asset")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasAsset.key")
+                    hidden(value: true)
+                    operator
+                }
+                assetType: advancedFilter(
+                    type: text
+                    key: ["elody:1|metadata.assetType.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: "Muziekfragmenten")
+                    operator
+                }
+                unfinishedStatus: advancedFilter(
+                    type: selection
+                    key: ["elody:1|metadata.status.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: ["Concept", "Verwacht"])
+                    operator
+                }
+            }
+        }
+    }
+    
+    query GetAssetsWithTypeTrailerFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(
+                    type: type
+                    operator: and
+                ) {
+                    type
+                    defaultValue(value: "asset")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasAsset.key")
+                    hidden(value: true)
+                    operator
+                }
+                assetType: advancedFilter(
+                    type: text
+                    key: ["elody:1|metadata.assetType.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: "Trailer")
+                    operator
+                }
+                unfinishedStatus: advancedFilter(
+                    type: selection
+                    key: ["elody:1|metadata.status.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: ["Concept", "Verwacht"])
+                    operator
+                }
+            }
+        }
+    }
+    
+    query GetAssetsWithTypePersFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(
+                    type: type
+                    operator: and
+                ) {
+                    type
+                    defaultValue(value: "asset")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasAsset.key")
+                    hidden(value: true)
+                    operator
+                }
+                assetType: advancedFilter(
+                    type: text
+                    key: ["elody:1|metadata.assetType.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: "Pers")
+                    operator
+                }
+                unfinishedStatus: advancedFilter(
+                    type: selection
+                    key: ["elody:1|metadata.status.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: ["Concept", "Verwacht"])
+                    operator
+                }
+            }
+        }
+    }
+    
+    query GetAssetsWithTypeOmkaderingFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(
+                    type: type
+                    operator: and
+                ) {
+                    type
+                    defaultValue(value: "asset")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasAsset.key")
+                    hidden(value: true)
+                    operator
+                }
+                assetType: advancedFilter(
+                    type: text
+                    key: ["elody:1|metadata.assetType.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: "Omkadering")
+                    operator
+                }
+                unfinishedStatus: advancedFilter(
+                    type: selection
+                    key: ["elody:1|metadata.status.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: ["Concept", "Verwacht"])
+                    operator
+                }
+            }
+        }
+    }
+    
+    query GetAssetsWithTypeSocialMediaFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(
+                    type: type
+                    operator: and
+                ) {
+                    type
+                    defaultValue(value: "asset")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasAsset.key")
+                    hidden(value: true)
+                    operator
+                }
+                assetType: advancedFilter(
+                    type: text
+                    key: ["elody:1|metadata.assetType.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: "Social media")
+                    operator
+                }
+                unfinishedStatus: advancedFilter(
+                    type: selection
+                    key: ["elody:1|metadata.status.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: ["Concept", "Verwacht"])
+                    operator
                 }
             }
         }

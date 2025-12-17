@@ -18,16 +18,20 @@ export const podiumnetFields: { [key: string]: InputField } = {
     assetTypeTypeField: {
         type: InputFieldTypes.DropdownSingleselectMetadata,
         options: [
-            {icon: DamsIcons.NoIcon, label: "Afbeelding", value: "Afbeelding"},
-            {icon: DamsIcons.NoIcon, label: "Video", value: "Video"},
+            {icon: DamsIcons.NoIcon, label: "Affichebeeld", value: "Affichebeeld"},
+            {icon: DamsIcons.NoIcon, label: "Scènebeelden", value: "Scènebeelden"},
             {icon: DamsIcons.NoIcon, label: "Muziekfragmenten", value: "Muziekfragmenten"},
+            {icon: DamsIcons.NoIcon, label: "Trailer", value: "Trailer"},
+            {icon: DamsIcons.NoIcon, label: "Pers", value: "Pers"},
+            {icon: DamsIcons.NoIcon, label: "Omkadering", value: "Omkadering"},
+            {icon: DamsIcons.NoIcon, label: "Social media", value: "Social media"},
         ],
     },
     productionStatusTypeField: {
         type: InputFieldTypes.DropdownSingleselectMetadata,
         options: [
-            {icon: DamsIcons.NoIcon, label: "Draft", value: "Draft"},
-            {icon: DamsIcons.NoIcon, label: "Klaar", value: "Klaar"},
+            {icon: DamsIcons.NoIcon, label: "Concept", value: "Concept"},
+            {icon: DamsIcons.NoIcon, label: "Gepubliceerd", value: "Gepubliceerd"},
             {icon: DamsIcons.NoIcon, label: "Gearchiveerd", value: "Gearchiveerd"},
         ],
     },

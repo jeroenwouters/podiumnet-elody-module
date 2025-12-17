@@ -8,10 +8,6 @@ export const podiumnetFormattersConfig: FormattersConfig = {
             "background": "#e6e6e6",
             "text": "#4a4a4a",
         },
-        draft: {
-            "background": "#e6e6e6",
-            "text": "#4a4a4a",
-        },
         verwacht: {
             "background": "#ecdada",
             "text": "#ac1113",
@@ -20,7 +16,7 @@ export const podiumnetFormattersConfig: FormattersConfig = {
             "background": "#daecdd",
             "text": "#0b8319",
         },
-        klaar: {
+        gepubliceerd: {
             "background": "#daecdd",
             "text": "#0b8319",
         },
