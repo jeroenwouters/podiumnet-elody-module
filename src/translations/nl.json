@@ -29,7 +29,8 @@
         "id": "Id",
         "title": "Titel",
         "production": "Productie",
-        "description": "Beschrijving"
+        "description": "Beschrijving",
+        "filename": "Bestandsnaam"
       }
     },
     "navigation": {

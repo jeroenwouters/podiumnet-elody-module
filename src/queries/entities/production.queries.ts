@@ -336,11 +336,11 @@ export const productionQueries = gql`
                 }
                 relation: advancedFilter(
                     type: selection
-                    key: ["vlacc:1|relations.isAssetFor.key"]
+                    key: ["elody:1|identifiers"]
                 ) {
                     type
                     key
-                    defaultValue(value: "")
+                    defaultValue(value: "$entity.relationValues.hasAsset.key")
                     hidden(value: true)
                 }
             }
@@ -357,30 +357,36 @@ export const productionQueries = gql`
                 }
                 relation: advancedFilter(
                     type: selection
-                    key: ["vlacc:1|relations.isAssetFor.key"]
+                    key: ["elody:1|identifiers"]
+                    operator: and
                 ) {
                     type
                     key
-                    defaultValue(value: "")
+                    defaultValue(value: "$entity.relationValues.hasAsset.key")
                     hidden(value: true)
+                    operator
                 }
                 isConcept: advancedFilter(
                     type: text
                     key: ["elody:1|metadata.status.value"]
+                    operator: or
                 ) {
                     type
                     key
                     hidden(value: true)
                     defaultValue(value: "Concept")
+                    operator
                 }
                 isVerwacht: advancedFilter(
                     type: text
                     key: ["elody:1|metadata.status.value"]
+                    operator: or
                 ) {
                     type
                     key
                     hidden(value: true)
                     defaultValue(value: "Verwacht")
+                    operator
                 }
             }
         }
@@ -404,6 +410,7 @@ export const productionQueries = gql`
                             bulkOperationModal: {
                                 typeModal: DynamicForm
                                 formQuery: "GetAssetCreateFormInDetail"
+                                formRelationType: "isAssetFor"
                                 askForCloseConfirmation: true
                                 neededPermission: cancreate
                             }

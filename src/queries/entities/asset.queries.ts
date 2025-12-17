@@ -100,14 +100,20 @@ export const assetQueries = gql`
                                 label(input: "Asset status")
                                 key(input: "status")
                                 inputField(type: assetStatusTypeField) {
-                                    ...inputfield 
+                                    ...inputfield
+                                    validation(input: { value: required }) {
+                                        ...validation
+                                    }
                                 }
                             }
                             assetType: metaData {
                                 label(input: "Asset type")
                                 key(input: "assetType")
                                 inputField(type: assetTypeTypeField) {
-                                    ...inputfield 
+                                    ...inputfield
+                                    validation(input: { value: required }) {
+                                        ...validation
+                                    }
                                 }
                             }
                             dateAvailable: metaData {
@@ -162,6 +168,9 @@ export const assetQueries = gql`
                         key(input: "status")
                         inputField(type: assetStatusTypeField) {
                             ...inputfield
+                            validation(input: { value: required }) {
+                                ...validation 
+                            }
                         }
                     }
                     assetType: metaData {
@@ -169,6 +178,9 @@ export const assetQueries = gql`
                         key(input: "assetType")
                         inputField(type: assetTypeTypeField) {
                             ...inputfield
+                            validation(input: { value: required }) {
+                                ...validation 
+                            }
                         }
                     }
                     availableForVenues: metaData {
