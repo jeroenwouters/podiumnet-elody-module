@@ -288,19 +288,19 @@ export const podiumnetQueries = gql`
                 mediafile: menuItem(
                     label: "navigation.mediafile"
                     entityType: mediafile
-                    typeLink: { route: { destination: "Home" } }
+                    typeLink: { route: { destination: "mediafiles" } }
                     icon: Image
                     requiresAuth: true
                 ) {
                     label
                     entityType
+                    icon
+                    requiresAuth
                     typeLink {
                         route {
                             destination
                         }
                     }
-                    icon
-                    requiresAuth
                 }
                 upload: menuItem(
                     label: "navigation.upload"
@@ -603,7 +603,12 @@ export const podiumnetQueries = gql`
 
     query getPreviewComponents($entityType: String!) {
         PreviewComponents(entityType: $entityType) {
-            __typename
+            ... on Asset {
+                ...previewForAsset
+            }
+            ... on MediaFileEntity {
+                ...previewForMediafile
+            }
         }
     }
 

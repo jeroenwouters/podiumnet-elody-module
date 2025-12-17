@@ -25,7 +25,7 @@ export const podiumnetResolver: Resolvers = {
       const type = obj.type?.toLowerCase();
       if (type === "user") return "User";
       else if (type === "tenant") return "Tenant";
-      else if (type === "mediafile") return "Mediafile";
+      else if (type === "mediafile") return "MediaFileEntity";
       else if (type === "asset") return "Asset";
       return "BaseEntity";
     },

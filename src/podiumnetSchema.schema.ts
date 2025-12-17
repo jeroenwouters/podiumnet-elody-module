@@ -30,6 +30,7 @@ export const podiumnetSchema = gql`
    enum BaseFieldType {
        hasWriterField
        assetStatusTypeField
+       assetTypeTypeField
    }
 
   interface Entity {

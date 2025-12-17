@@ -14,4 +14,12 @@ export const podiumnetFields: { [key: string]: InputField } = {
             {icon: DamsIcons.NoIcon, label: "Finaal", value: "Finaal"},
         ],
     },
+    assetTypeTypeField: {
+        type: InputFieldTypes.DropdownSingleselectMetadata,
+        options: [
+            {icon: DamsIcons.NoIcon, label: "Afbeelding", value: "Afbeelding"},
+            {icon: DamsIcons.NoIcon, label: "Video", value: "Video"},
+            {icon: DamsIcons.NoIcon, label: "Muziekfragmenten", value: "Muziekfragmenten"},
+        ],
+    },
 };

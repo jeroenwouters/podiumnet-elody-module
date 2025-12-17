@@ -52,7 +52,7 @@ export const podiumnetRoutes = [
                 name: RouteNames.Mediafiles,
                 component: "Home",
                 meta: {
-                    type: Collection.Mediafiles,
+                    type: Collection.Entities,
                     entityType: Entitytyping.Mediafile,
                     hasEditMetadataButton: false,
                     slug: "mediafiles",

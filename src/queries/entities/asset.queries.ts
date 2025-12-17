@@ -24,6 +24,8 @@ export const assetQueries = gql`
             title: keyValue(key: "title", source: metadata)
             description: keyValue(key: "description", source: metadata)
             assetStatus: keyValue(key: "assetStatus", source: metadata)
+            assetType: keyValue(key: "assetType", source: metadata)
+            dateAvailable: keyValue(key: "dateAvailable", source: metadata)
             availableForVenues: keyValue(key: "availableForVenues", source: metadata)
             ...entityAuditIntialValues
         }
@@ -86,6 +88,20 @@ export const assetQueries = gql`
                                     ...inputfield 
                                 }
                             }
+                            assetType: metaData {
+                                label(input: "Asset type")
+                                key(input: "assetType")
+                                inputField(type: assetTypeTypeField) {
+                                    ...inputfield 
+                                }
+                            }
+                            dateAvailable: metaData {
+                                label(input: "Datum beschikbaar")
+                                key(input: "dateAvailable")
+                                inputField(type: baseDateField) {
+                                    ...inputfield 
+                                }
+                            }
                             availableForVenues: metaData {
                                 label(input: "Beschikbaar voor podiumhuizen")
                                 key(input: "availableForVenues")
@@ -130,6 +146,13 @@ export const assetQueries = gql`
                         label(input: "Asset status")
                         key(input: "assetStatus")
                         inputField(type: assetStatusTypeField) {
+                            ...inputfield
+                        }
+                    }
+                    assetType: metaData {
+                        label(input: "Asset type")
+                        key(input: "assetType")
+                        inputField(type: assetTypeTypeField) {
                             ...inputfield
                         }
                     }
@@ -387,6 +410,7 @@ export const assetQueries = gql`
                             __typename
                         }
                     }
+                    relationValues
                     allowedViewModes {
                         viewModes(
                             input: [{ viewMode: ViewModesList }, { viewMode: ViewModesGrid }]
@@ -428,6 +452,39 @@ export const assetQueries = gql`
                     hidden(value: true)
                 }
             }
+        }
+    }
+
+    query GetPreviewInAsset {
+        PreviewElement {
+            column {
+                size(size: hundred)
+                elements {
+                    entityListElement {
+                        label(input: "element-labels.mediafiles-element")
+                        type(input: media)
+                        isCollapsed(input: false)
+                        entityTypes(input: [mediafile])
+                        baseLibraryMode(input: previewBaseLibrary)
+                        relationType: label(input: "hasMediafile")
+                        searchInputType(input: "AdvancedInputMediaFilesType")
+                        customQuery(input: "GetMediafilesInAsset")
+                        customQueryRelationType: label(input: "isMediafileFor")
+                        customQueryFilters(input: "GetMediafilesInAssetFilters")
+                        customBulkOperations(
+                            input: "GetBulkOperationsForMediafilesInDetail"
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    fragment previewForAsset on Asset {
+        previewComponent {
+            type(input: ColumnList)
+            listItemsCoverage(input: OneListItem)
+            previewQuery(input: "GetPreviewInAsset")
         }
     }
 
