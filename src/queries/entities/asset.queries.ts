@@ -5,16 +5,11 @@ export const assetQueries = gql`
     fragment minimalAsset on Asset {
         ...minimalBaseEntity
         intialValues {
-            typePillLabel: keyValue(key: "type", source: typePillLabel, index: 0, formatter: "pill|auto")
             title: keyValue(key: "title", source: metadata)
             status: keyValue(key: "status", source: metadata, formatter: "pill")
             dateAvailable: keyValue(key: "dateAvailable", source: metadata)
         }
         teaserMetadata {
-            typePillLabel: metaData {
-                label(input: "Type")
-                key(input: "typePillLabel")
-            }
             thumbnail: thumbnail {
                 filename(fromMediafile: true)
             }

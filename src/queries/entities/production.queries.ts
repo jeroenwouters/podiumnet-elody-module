@@ -3,7 +3,6 @@ import { gql } from "graphql-modules";
 export const productionQueries = gql`
     fragment minimalProduction on Production {
         intialValues {
-            typePillLabel: keyValue(key: "type", source: typePillLabel, index: 0, formatter: "pill|auto")
             title: keyValue(key: "title", source: metadata)
             status: keyValue(key: "status", source: metadata, formatter: "pill")
         }
@@ -16,10 +15,6 @@ export const productionQueries = gql`
             }
         }
         teaserMetadata {
-            typePillLabel: metaData {
-                label(input: "Type")
-                key(input: "typePillLabel")
-            }
             title: metaData {
                 label(input: "metadata.labels.production")
                 key(input: "title")

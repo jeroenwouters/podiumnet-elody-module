@@ -25,7 +25,8 @@
       "fetch": "Ophalen",
       "mappings": "Mappings",
       "sources": "Bronnen",
-      "targets": "Doelen"
+      "targets": "Doelen",
+      "technical-metadata": "Technische metadata"
     },
     "metadata": {
       "labels": {
