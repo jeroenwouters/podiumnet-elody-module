@@ -4,16 +4,18 @@
       "singular": {
         "asset": "asset",
         "production": "productie",
-        "notification": "notificatie"
-
+        "notification": "notificatie",
+        "podiumhuis": "Podiumhuis"
       },
       "plural": {
         "asset": "assets",
         "production": "producties",
-        "notification": "notificaties"
+        "notification": "notificaties",
+        "podiumhuis": "Podiumhuizen"
       }
     },
     "element-labels": {
+      "user-element": "Users",
       "completeness-overview-element": "Compleetheidsoverzicht",
       "all-assets-element": "Alle assets",
       "notifications-element": "Notificaties",
@@ -22,6 +24,8 @@
     "panel-labels": {
       "production-info": "Productie info",
       "mediafile-info": "Mediafile info",
+      "notification-info": "Noticiatie info",
+      "podiumhuis-info": "Podiumhuis info",
       "auth": "Authenticatie",
       "fetch": "Ophalen",
       "mappings": "Mappings",
@@ -33,6 +37,7 @@
       "labels": {
         "id": "Id",
         "title": "Titel",
+        "name": "Naam",
         "production": "Productie",
         "notifications": "Notificatie",
         "description": "Beschrijving",
@@ -43,7 +48,9 @@
         "date-created": "Datum aangemaakt",
         "date-send": "Datum verzonden",
         "send-to-users": "Verzonden naar gebruikers",
-        "included-assets": "Betrokken Assets"
+        "included-assets": "Betrokken Assets",
+        "url": "Url",
+        "roles": "Rol"
       }
     },
     "navigation": {
@@ -51,16 +58,19 @@
       "create-mediafile": "Mediafile aanmaken",
       "create-asset": "Asset",
       "create-notification": "Notificatie",
+      "create-podiumhuis": "Podiumhuis",
       "assets": "Assets",
       "create-production": "Productie",
       "productions": "Producties",
-      "notifications": "Notificaties"
+      "notifications": "Notificaties",
+      "podiumhuizen": "Podiumhuizen"
     },
     "bulk-operations": {
       "create-mediafile": "Mediafile aanmaken",
       "create-asset": "Maak asset aan",
       "create-production": "Maak Productie aan",
       "create-notification": "Maak Notificatie aan",
+      "create-podiumhuis": "Maak Podiumhuis aan",
       "add-asset": "Voeg een asset toe",
       "delete-labels": {
         "asset": "asset",

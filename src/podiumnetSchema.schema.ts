@@ -7,6 +7,7 @@ export const podiumnetSchema = gql`
         Assets
         Productions
         Notifications
+        Podiumhuizen
     }
 
     enum Entitytyping {
@@ -16,6 +17,7 @@ export const podiumnetSchema = gql`
         asset
         production
         notification
+        podiumhuis
     }
 
     #  enum KeyValueSource {
@@ -40,6 +42,7 @@ export const podiumnetSchema = gql`
         includedAssetsTypeField
         notificationStatusTypeField
         availibilityStatusTypeField
+        rolesTypeField
     }
 
     interface Entity {
@@ -110,6 +113,23 @@ export const podiumnetSchema = gql`
     }    
     
     type Notification implements Entity {
+        id: String!
+        uuid: String!
+        type: String!
+        teaserMetadata: teaserMetadata
+        intialValues: IntialValues!
+        allowedViewModes: AllowedViewModes
+        relationValues: JSON
+        entityView: ColumnList!
+        advancedFilters: AdvancedFilters
+        sortOptions: SortOptions
+        bulkOperationOptions: BulkOperationOptions
+        previewComponent: PreviewComponent
+        deleteQueryOptions: DeleteQueryOptions
+        mapElement: MapElement
+    }
+    
+    type Podiumhuis implements Entity {
         id: String!
         uuid: String!
         type: String!

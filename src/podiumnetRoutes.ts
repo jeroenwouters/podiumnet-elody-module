@@ -86,6 +86,22 @@ export const podiumnetRoutes = [
                 },
             },
             {
+                path: "/podiumhuizen",
+                name: RouteNames.Podiumhuizen,
+                component: "Home",
+                meta: {
+                    requiresAuth: false,
+                    type: Collection.Entities,
+                    entityType: Entitytyping.Podiumhuis,
+                    breadcrumbs: [
+                        {
+                            overviewPage: RouteNames.Podiumhuizen,
+                            title: "navigation.podiumhuizen",
+                        },
+                    ],
+                },
+            },
+            {
                 path: "/mediafiles",
                 name: RouteNames.Mediafiles,
                 component: "Home",

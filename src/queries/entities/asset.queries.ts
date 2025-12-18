@@ -36,11 +36,10 @@ export const assetQueries = gql`
             status: keyValue(key: "status", source: metadata, formatter: "pill")
             assetType: keyValue(key: "assetType", source: metadata)
             dateAvailable: keyValue(key: "dateAvailable", source: metadata)
-            availableForVenues: keyValue(key: "availableForVenues", source: metadata)
             links: keyValue(key: "links", source: metadata)
             ...entityAuditIntialValues
         }
-
+        relationValues
         entityView {
             column {
                 size(size: seventy)
@@ -58,6 +57,16 @@ export const assetQueries = gql`
                         customBulkOperations(
                             input: "GetBulkOperationsForMediafilesInDetail"
                         )
+                    }
+                    Podiumhuizen: entityListElement {
+                        label(input: "Gelinkte podiumhuizen")
+                        isCollapsed(input: false)
+                        entityTypes(input: [podiumhuis])
+                        relationType: label(input: "hasPodiumhuis")
+                        searchInputType(input: "AdvancedInputType")
+                        customQuery(input: "GetPodiumhuis")
+                        customQueryFilters(input: "GetPodiumhuisFilters")
+                        customBulkOperations(input: "GetBulkOperationsForPodiumhuisInAsset")
                     }
                 }
             }
@@ -119,13 +128,6 @@ export const assetQueries = gql`
                                     ...inputfield 
                                 }
                             }
-                            availableForVenues: metaData {
-                                label(input: "Beschikbaar voor podiumhuizen")
-                                key(input: "availableForVenues")
-                                inputField(type: baseCheckbox) {
-                                    ...inputfield 
-                                }
-                            }
                             links: metaData {
                                 label(input: "Links")
                                 key(input: "links")
@@ -184,13 +186,6 @@ export const assetQueries = gql`
                             validation(input: { value: required }) {
                                 ...validation 
                             }
-                        }
-                    }
-                    availableForVenues: metaData {
-                        label(input: "Beschikbaar voor podiumhuizen")
-                        key(input: "availableForVenues")
-                        inputField(type: baseCheckbox) {
-                            ...inputfield
                         }
                     }
                     uploadContainer {
@@ -536,7 +531,7 @@ export const assetQueries = gql`
                 }
                 technical_origin: advancedFilter(
                     type: text
-                    key: ["dams:1|technical_origin"]
+                    key: ["elody:1|technical_origin"]
                 ) {
                     type
                     key
@@ -545,7 +540,7 @@ export const assetQueries = gql`
                 }
                 relation: advancedFilter(
                     type: selection
-                    key: ["dams:1|relations.isMediafileFor.key"]
+                    key: ["elody:1|relations.isMediafileFor.key"]
                 ) {
                     type
                     key
@@ -633,6 +628,118 @@ export const assetQueries = gql`
                     label
                     value
                     primary
+                    actionContext {
+                        ...actionContext
+                    }
+                    bulkOperationModal {
+                        ...bulkOperationModal
+                    }
+                }
+            }
+        }
+    }
+
+    query GetPodiumhuis(
+        $type: Entitytyping!
+        $limit: Int
+        $skip: Int
+        $searchValue: SearchFilter!
+        $advancedSearchValue: [FilterInput]
+        $advancedFilterInputs: [AdvancedFilterInput!]!
+        $searchInputType: SearchInputType
+    ) {
+        Entities(
+            type: $type
+            limit: $limit
+            skip: $skip
+            searchValue: $searchValue
+            advancedSearchValue: $advancedSearchValue
+            advancedFilterInputs: $advancedFilterInputs
+            searchInputType: $searchInputType
+        ) {
+            count
+            limit
+            results {
+                id
+                uuid
+                type
+                ... on Podiumhuis {
+                    intialValues {
+                        name: keyValue(key: "name", source: metadata)
+                    }
+                    teaserMetadata {
+                        name: metaData {
+                            label(input: "metadata.labels.name")
+                            key(input: "name")
+                        }
+                        contextMenuActions {
+                            doLinkAction {
+                                label(input: "contextMenu.contextMenuLinkAction.followLink")
+                                icon(input: "AngleRight")
+                                __typename
+                            }
+                            deleteEntity: doElodyAction {
+                                label(input: "contextMenu.contextMenuElodyAction.delete-entity")
+                                action(input: DeleteEntity)
+                                icon(input: "Trash")
+                                __typename
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    query GetPodiumhuisFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(type: type) {
+                    type
+                    defaultValue(value: "podiumhuis")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasPodiumhuis.key")
+                    hidden(value: true)
+                }
+            }
+        }
+    }
+
+    query GetBulkOperationsForPodiumhuisInAsset {
+        CustomBulkOperations {
+            bulkOperationOptions {
+                options(
+                    input: [
+                        {
+                            icon: PlusCircle
+                            label: "bulk-operations.add-existing-relation"
+                            value: "addRelation"
+                            actionContext: {
+                                activeViewMode: readMode
+                                entitiesSelectionType: noneSelected
+                                labelForTooltip: "tooltip.bulkOperationsActionBar.readmode-noneselected"
+                            }
+                            bulkOperationModal: {
+                                typeModal: DynamicForm
+                                formQuery: "GetImportExistingEntityQuery"
+                                askForCloseConfirmation: true
+                                neededPermission: canupdate
+                            }
+                        }
+                    ]
+                ) {
+                    icon
+                    label
+                    value
+                    primary
+                    can
                     actionContext {
                         ...actionContext
                     }

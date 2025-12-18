@@ -65,6 +65,13 @@ export const podiumnetFields: { [key: string]: InputField } = {
             {icon: DamsIcons.NoIcon, label: "Verzonden", value: "Verzonden"},
         ],
     },
+    rolesTypeField: {
+        type: InputFieldTypes.DropdownSingleselectMetadata,
+        options: [
+            {icon: DamsIcons.NoIcon, label: "Admin", value: "Admin"},
+            {icon: DamsIcons.NoIcon, label: "Medewerker", value: "Medewerker"},
+        ],
+    },
     internalResponsibleTypeField: {
         type: InputFieldTypes.DropdownSingleselectRelations,
         entityType: Entitytyping.User,

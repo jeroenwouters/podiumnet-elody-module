@@ -34,6 +34,9 @@ export const podiumnetQueries = gql`
         ... on Notification {
             ...fullNotification
         }
+        ... on Podiumhuis {
+            ...fullPodiumhuis
+        }
     }
 
     query getEntities(
@@ -77,6 +80,9 @@ export const podiumnetQueries = gql`
                 }
                 ... on Notification {
                     ...minimalNotification
+                }
+                ... on Podiumhuis {
+                    ...minimalPodiumhuis
                 }
             }
         }
@@ -131,6 +137,9 @@ export const podiumnetQueries = gql`
             }
             ... on Notification {
                 ...filtersForNotification
+            }
+            ... on Podiumhuis {
+                ...filtersForPodiumhuis
             }
         }
     }
@@ -433,23 +442,23 @@ export const podiumnetQueries = gql`
                         }
                     }
                 }
-#                notifications: menuItem(
-#                    label: "navigation.notifications"
-#                    entityType: asset
-#                    typeLink: { route: { destination: "notifications" } }
-#                    icon: Bell
-#                    requiresAuth: true
-#                ) {
-#                    label
-#                    entityType
-#                    typeLink {
-#                        route {
-#                            destination
-#                        }
-#                    }
-#                    icon
-#                    requiresAuth
-#                }
+                podiumhuis: menuItem(
+                    label: "navigation.podiumhuizen"
+                    entityType: asset
+                    typeLink: { route: { destination: "podiumhuizen" } }
+                    icon: Home
+                    requiresAuth: true
+                ) {
+                    label
+                    entityType
+                    typeLink {
+                        route {
+                            destination
+                        }
+                    }
+                    icon
+                    requiresAuth
+                }
             }
         }
     }
@@ -499,6 +508,9 @@ export const podiumnetQueries = gql`
             ... on Notification {
                 ...notificationSortOptions
             }
+            ... on Podiumhuis {
+                ...podiumhuisSortOptions
+            }
         }
     }
 
@@ -541,6 +553,9 @@ export const podiumnetQueries = gql`
             }
             ... on Notification {
                 ...notificationBulkOperations
+            }
+            ... on Podiumhuis {
+                ...podiumhuisBulkOperations
             }
             ... on MediaFileEntity {
                 ...mediafileBulkOperations
@@ -646,6 +661,9 @@ export const podiumnetQueries = gql`
             ... on Notification {
                 ...previewForNotification
             }
+#            ... on Podiumhuis {
+#                ...previewForPodiumhuis
+#            }
             ... on MediaFileEntity {
                 ...previewForMediafile
             }

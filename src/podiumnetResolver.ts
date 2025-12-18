@@ -29,6 +29,7 @@ export const podiumnetResolver: Resolvers = {
             else if (type === "asset") return "Asset";
             else if (type === "production") return "Production";
             else if (type === "notification") return "Notification";
+            else if (type === "podiumhuis") return "Podiumhuis";
             return "BaseEntity";
         },
     },
@@ -48,6 +49,9 @@ export const podiumnetResolver: Resolvers = {
         ...baseSetOffResolvers,
     },
     Production: {
+        ...baseSetOffResolvers,
+    },
+    Podiumhuis: {
         ...baseSetOffResolvers,
     },
     Query: {
