@@ -36,6 +36,13 @@ export const podiumnetFields: { [key: string]: InputField } = {
             {icon: DamsIcons.NoIcon, label: "Gearchiveerd", value: "Gearchiveerd"},
         ],
     },
+    availibilityStatusTypeField: {
+        type: InputFieldTypes.DropdownSingleselectMetadata,
+        options: [
+            {icon: DamsIcons.NoIcon, label: "Niet van toepassing", value: "Niet van toepassing"},
+            {icon: DamsIcons.NoIcon, label: "Volgt later", value: "Volgt later"},
+        ],
+    },
     includedAssetsTypeField: {
         type: InputFieldTypes.DropdownMultiselectMetadata,
         autoAllSelectable: true,

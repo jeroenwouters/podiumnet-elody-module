@@ -34,6 +34,8 @@ export const productionQueries = gql`
             title: keyValue(key: "title", source: metadata)
             status: keyValue(key: "status", source: metadata, formatter: "pill")
             description: keyValue(key: "description", source: metadata)
+            availibility: keyValue(key: "availibility", source: metadata)
+            availibilityDescription: keyValue(key: "availibilityDescription", source: metadata)
             internalResponsible: keyValue(
                 key: "hasUser"
                 source: relations
@@ -55,7 +57,21 @@ export const productionQueries = gql`
                             panelType(input: metadata)
                             isCollapsed(input: true)
                             isEditable(input: true)
-                            canBeMultipleColumns(input: true)
+                            canBeMultipleColumns(input: false)
+                            availibility: metaData {
+                                label(input: "Beschikbaarheid")
+                                key(input: " availibility")
+                                inputField(type: availibilityStatusTypeField) {
+                                    ...inputfield
+                                }
+                            }
+                            availibilityDescription: metaData {
+                                label(input: "metadata.labels.description")
+                                key(input: "availibilityDescription")
+                                inputField(type: baseTextareaField) {
+                                    ...inputfield
+                                }
+                            }
                             Affiches: entityListElement {
                                 label(input: "Affiches")
                                 isCollapsed(input: false)
