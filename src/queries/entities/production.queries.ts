@@ -223,6 +223,16 @@ export const productionQueries = gql`
                         customQueryFilters(input: "GetNotificationsInProductionFilters")
                         customBulkOperations(input: "GetBulkOperationsForNotificationsInProduction")
                     }
+                    Podiumhuizen: entityListElement {
+                        label(input: "Gelinkte podiumhuizen")
+                        isCollapsed(input: false)
+                        entityTypes(input: [podiumhuis])
+                        relationType: label(input: "hasPodiumhuis")
+                        searchInputType(input: "AdvancedInputType")
+                        customQuery(input: "GetPodiumhuis")
+                        customQueryFilters(input: "GetPodiumhuisFilters")
+                        customBulkOperations(input: "GetBulkOperationsForPodiumhuisInAsset")
+                    }
                 }
             }
             column2: column {
@@ -735,7 +745,6 @@ export const productionQueries = gql`
                 type
                 ... on Asset {
                     intialValues {
-                        typePillLabel: keyValue(key: "type", source: typePillLabel, index: 0, formatter: "pill|auto")
                         title: keyValue(key: "title", source: metadata)
                         status: keyValue(key: "status", source: metadata, formatter: "pill")
                         todo: keyValue(
@@ -746,10 +755,6 @@ export const productionQueries = gql`
                         )
                     }
                     teaserMetadata {
-                        typePillLabel: metaData {
-                            label(input: "Type")
-                            key(input: "typePillLabel")
-                        }
                         thumbnail: thumbnail {
                             filename(fromMediafile: true)
                         }
