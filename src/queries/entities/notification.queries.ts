@@ -3,7 +3,7 @@ import { gql } from "graphql-modules";
 export const notificationQueries = gql`
     fragment minimalNotification on Notification {
         intialValues {
-            subject: keyValue(key: "subject", source: metadata)
+            title: keyValue(key: "title", source: metadata)
             status: keyValue(key: "status", source: metadata, formatter: "pill")
         }
         allowedViewModes {
@@ -15,9 +15,9 @@ export const notificationQueries = gql`
             }
         }
         teaserMetadata {
-            subject: metaData {
+            title: metaData {
                 label(input: "metadata.labels.subject")
-                key(input: "subject")
+                key(input: "title")
             }
             status: metaData {
                 label(input: "metadata.labels.status")
@@ -31,10 +31,11 @@ export const notificationQueries = gql`
         intialValues {
             typePillLabel: keyValue(key: "type", source: typePillLabel, index: 0, formatter: "pill|auto")
             ...entityAuditIntialValues
-            subject: keyValue(key: "subject", source: metadata)
+            title: keyValue(key: "title", source: metadata)
             status: keyValue(key: "status", source: metadata, formatter: "pill")
             dateCreated: keyValue(key: "dateCreated", source: metadata)
             dateSend: keyValue(key: "dateSend", source: metadata)
+            includedAssets: keyValue(key: "includedAssets", source: metadata)
         }
         relationValues
         entityView {
@@ -51,9 +52,9 @@ export const notificationQueries = gql`
                             panelType(input: metadata)
                             isCollapsed(input: false)
                             isEditable(input: true)
-                            subject: metaData {
+                            title: metaData {
                                 label(input: "metadata.labels.subject")
-                                key(input: "subject")
+                                key(input: "title")
                                 inputField(type: baseTextField) {
                                     ...inputfield
                                     validation(input: { value: required }) {
@@ -65,6 +66,16 @@ export const notificationQueries = gql`
                                 label(input: "metadata.labels.status")
                                 key(input: "status")
                                 inputField(type: notificationStatusTypeField) {
+                                    ...inputfield
+                                    validation(input: { value: required }) {
+                                        ...validation
+                                    }
+                                }
+                            }
+                            includedAssets: metaData {
+                                label(input: "metadata.labels.included-assets")
+                                key(input: "includedAssets")
+                                inputField(type: includedAssetsTypeField) {
                                     ...inputfield
                                     validation(input: { value: required }) {
                                         ...validation
@@ -87,6 +98,16 @@ export const notificationQueries = gql`
                             }
                         }
                     }
+                    SendToUsers: entityListElement {
+                        label(input: "element-labels.send-to-users-element")
+                        isCollapsed(input: false)
+                        entityTypes(input: [user])
+                        relationType: label(input: "hasUser")
+                        searchInputType(input: "AdvancedInputType")
+                        customQuery(input: "GetUsers")
+                        customQueryFilters(input: "GetUsersInNotificationFilters")
+                        customBulkOperations(input: "GetBulkOperationsForUsersInNotification")
+                    }
                     audit: windowElement {
                         label(input: "panel-labels.audit-panel")
                         audit: panels {
@@ -107,7 +128,7 @@ export const notificationQueries = gql`
         sortOptions {
             options(
                 input: [
-                    { icon: NoIcon, label: "metadata.labels.subject", value: "subject" }
+                    { icon: NoIcon, label: "metadata.labels.subject", value: "title" }
                     { icon: NoIcon, label: "metadata.labels.status", value: "status" }
                     { icon: NoIcon, label: "metadata.labels.date-created", value: "dateCreated" }
                 ]
@@ -124,10 +145,20 @@ export const notificationQueries = gql`
             label(input: "navigation.create-notification")
             Notification: formTab {
                 formFields {
-                    subject: metaData {
+                    title: metaData {
                         label(input: "metadata.labels.subject")
-                        key(input: "subject")
+                        key(input: "title")
                         inputField(type: baseTextField) {
+                            ...inputfield
+                            validation(input: { value: required }) {
+                                ...validation
+                            }
+                        }
+                    }
+                    includedAssets: metaData {
+                        label(input: "metadata.labels.included-assets")
+                        key(input: "includedAssets")
+                        inputField(type: includedAssetsTypeField) {
                             ...inputfield
                             validation(input: { value: required }) {
                                 ...validation
@@ -182,9 +213,9 @@ export const notificationQueries = gql`
             ) {
                 ...advancedFilter
             }
-            subject: advancedFilter(
+            title: advancedFilter(
                 type: text
-                key: ["dams:1|metadata.subject.value"]
+                key: ["dams:1|metadata.title.value"]
                 label: "metadata.labels.subject"
                 isDisplayedByDefault: true
             ) {
@@ -298,17 +329,14 @@ export const notificationQueries = gql`
                 size(size: hundred)
                 elements {
                     entityListElement {
-                        label(input: "element-labels.assets-element")
+                        label(input: "element-labels.send-to-users-element")
                         isCollapsed(input: false)
-                        entityTypes(input: [asset])
+                        entityTypes(input: [user])
                         baseLibraryMode(input: previewBaseLibrary)
-                        relationType: label(input: "hasAsset")
+                        relationType: label(input: "hasNotification")
                         searchInputType(input: "AdvancedInputType")
-                        customQuery(input: "GetAssets")
-                        customQueryFilters(input: "GetAssetsInProductionFilters")
-                        customBulkOperations(
-                            input: "GetBulkOperationsForAssetInProduction"
-                        )
+                        customQuery(input: "GetUsers")
+                        customQueryFilters(input: "GetUsersInNotificationFilters")
                     }
                 }
             }
@@ -319,7 +347,99 @@ export const notificationQueries = gql`
         previewComponent {
             type(input: ColumnList)
             listItemsCoverage(input: OneListItem)
-            previewQuery(input: "GetPreviewInProduction")
+            previewQuery(input: "GetPreviewInNotification")
+        }
+    }
+
+    query GetUsersInNotificationFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(type: type) {
+                    type
+                    defaultValue(value: "user")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasUser.key")
+                    hidden(value: true)
+                }
+            }
+        }
+    }
+    
+    query GetUsers(
+        $type: Entitytyping!
+        $limit: Int
+        $skip: Int
+        $searchValue: SearchFilter!
+        $advancedSearchValue: [FilterInput]
+        $advancedFilterInputs: [AdvancedFilterInput!]!
+        $searchInputType: SearchInputType
+    ) {
+        Entities(
+            type: $type
+            limit: $limit
+            skip: $skip
+            searchValue: $searchValue
+            advancedSearchValue: $advancedSearchValue
+            advancedFilterInputs: $advancedFilterInputs
+            searchInputType: $searchInputType
+        ) {
+            count
+            limit
+            results {
+                id
+                uuid
+                type
+                ... on User {
+                    ...minimalUser
+                }
+            }
+            __typename
+        }
+    }
+
+    query GetBulkOperationsForUsersInNotification {
+        CustomBulkOperations {
+            bulkOperationOptions {
+                options(
+                    input: [
+                        {
+                            icon: PlusCircle
+                            label: "bulk-operations.add-existing-relation"
+                            value: "addRelation"
+                            actionContext: {
+                                activeViewMode: readMode
+                                entitiesSelectionType: noneSelected
+                                labelForTooltip: "tooltip.bulkOperationsActionBar.readmode-noneselected"
+                            }
+                            bulkOperationModal: {
+                                typeModal: DynamicForm
+                                formQuery: "GetImportExistingEntityQuery"
+                                askForCloseConfirmation: true
+                                neededPermission: canupdate
+                            }
+                        }
+                    ]
+                ) {
+                    icon
+                    label
+                    value
+                    primary
+                    can
+                    actionContext {
+                        ...actionContext
+                    }
+                    bulkOperationModal {
+                        ...bulkOperationModal
+                    }
+                }
+            }
         }
     }
 `;

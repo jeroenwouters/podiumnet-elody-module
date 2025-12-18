@@ -37,6 +37,7 @@ export const podiumnetSchema = gql`
         assetTypeTypeField
         productionStatusTypeField
         internalResponsibleTypeField
+        includedAssetsTypeField
         notificationStatusTypeField
     }
 

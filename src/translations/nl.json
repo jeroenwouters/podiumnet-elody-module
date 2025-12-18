@@ -4,19 +4,20 @@
       "singular": {
         "asset": "asset",
         "production": "productie",
-        "notifications": "notificatie"
+        "notification": "notificatie"
 
       },
       "plural": {
         "asset": "assets",
         "production": "producties",
-        "notifications": "notificaties"
+        "notification": "notificaties"
       }
     },
     "element-labels": {
       "completeness-overview-element": "Compleetheidsoverzicht",
       "all-assets-element": "Alle assets",
-      "notifications-element": "Notificaties"
+      "notifications-element": "Notificaties",
+      "send-to-users-element": "Verzonden naar gebruikers"
     },
     "panel-labels": {
       "production-info": "Productie info",
@@ -41,7 +42,8 @@
         "subject": "Onderwerp",
         "date-created": "Datum aangemaakt",
         "date-send": "Datum verzonden",
-        "send-to-users": "Verzonden naar gebruikers"
+        "send-to-users": "Verzonden naar gebruikers",
+        "included-assets": "Betrokken Assets"
       }
     },
     "navigation": {

@@ -189,7 +189,7 @@ export const productionQueries = gql`
                     }
                     Assets: entityListElement {
                         label(input: "element-labels.all-assets-element")
-                        isCollapsed(input: false)
+                        isCollapsed(input: true)
                         entityTypes(input: [asset])
                         relationType: label(input: "hasAsset")
                         searchInputType(input: "AdvancedInputType")
