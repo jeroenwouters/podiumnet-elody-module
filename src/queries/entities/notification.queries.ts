@@ -359,15 +359,15 @@ export const notificationQueries = gql`
                     defaultValue(value: "user")
                     hidden(value: true)
                 }
-                relation: advancedFilter(
-                    type: selection
-                    key: ["elody:1|identifiers"]
-                ) {
-                    type
-                    key
-                    defaultValue(value: "$entity.relationValues.hasUser.key")
-                    hidden(value: true)
-                }
+#                relation: advancedFilter(
+#                    type: selection
+#                    key: ["elody:1|identifiers"]
+#                ) {
+#                    type
+#                    key
+#                    defaultValue(value: "$entity.relationValues.hasUser.key")
+#                    hidden(value: true)
+#                }
             }
         }
     }
