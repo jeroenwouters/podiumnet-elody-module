@@ -28,6 +28,7 @@ export const podiumnetResolver: Resolvers = {
             else if (type === "mediafile") return "MediaFileEntity";
             else if (type === "asset") return "Asset";
             else if (type === "production") return "Production";
+            else if (type === "notification") return "Notification";
             return "BaseEntity";
         },
     },
@@ -41,6 +42,9 @@ export const podiumnetResolver: Resolvers = {
         ...baseSetOffResolvers,
     },
     Asset: {
+        ...baseSetOffResolvers,
+    },
+    Notification: {
         ...baseSetOffResolvers,
     },
     Production: {

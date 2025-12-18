@@ -36,6 +36,13 @@ export const podiumnetFields: { [key: string]: InputField } = {
             {icon: DamsIcons.NoIcon, label: "Gearchiveerd", value: "Gearchiveerd"},
         ],
     },
+    notificationStatusTypeField: {
+        type: InputFieldTypes.DropdownSingleselectMetadata,
+        options: [
+            {icon: DamsIcons.NoIcon, label: "Draft", value: "Draft"},
+            {icon: DamsIcons.NoIcon, label: "Verzonden", value: "Verzonden"},
+        ],
+    },
     internalResponsibleTypeField: {
         type: InputFieldTypes.DropdownSingleselectRelations,
         entityType: Entitytyping.User,

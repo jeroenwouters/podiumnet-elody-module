@@ -3,17 +3,20 @@
     "entity-translations": {
       "singular": {
         "asset": "asset",
-        "production": "productie"
+        "production": "productie",
+        "notifications": "notificatie"
 
       },
       "plural": {
         "asset": "assets",
-        "production": "producties"
+        "production": "producties",
+        "notifications": "notificaties"
       }
     },
     "element-labels": {
       "completeness-overview-element": "Compleetheidsoverzicht",
-      "all-assets-element": "Alle assets"
+      "all-assets-element": "Alle assets",
+      "notifications-element": "Notificaties"
     },
     "panel-labels": {
       "production-info": "Productie info",
@@ -29,24 +32,32 @@
         "id": "Id",
         "title": "Titel",
         "production": "Productie",
+        "notifications": "Notificatie",
         "description": "Beschrijving",
         "filename": "Bestandsnaam",
         "todo": "Todo",
-        "asset-type": "Asset type"
+        "asset-type": "Asset type",
+        "subject": "Onderwerp",
+        "date-created": "Datum aangemaakt",
+        "date-send": "Datum verzonden",
+        "send-to-users": "Verzonden naar gebruikers"
       }
     },
     "navigation": {
       "mediafiles": "Mediafiles",
       "create-mediafile": "Mediafile aanmaken",
       "create-asset": "Asset",
+      "create-notification": "Notificatie",
       "assets": "Assets",
       "create-production": "Productie",
-      "productions": "Producties"
+      "productions": "Producties",
+      "notifications": "Notificaties"
     },
     "bulk-operations": {
       "create-mediafile": "Mediafile aanmaken",
       "create-asset": "Maak asset aan",
       "create-production": "Maak Productie aan",
+      "create-notification": "Maak Notificatie aan",
       "add-asset": "Voeg een asset toe",
       "delete-labels": {
         "asset": "asset",

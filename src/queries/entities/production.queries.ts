@@ -202,6 +202,16 @@ export const productionQueries = gql`
                         customQueryFilters(input: "GetAssetsInProductionFilters")
                         customBulkOperations(input: "GetBulkOperationsForAssetInProduction")
                     }
+                    Notifications: entityListElement {
+                        label(input: "element-labels.notifications-element")
+                        isCollapsed(input: false)
+                        entityTypes(input: [notification])
+                        relationType: label(input: "hasNotification")
+                        searchInputType(input: "AdvancedInputType")
+                        customQuery(input: "GetNotifications")
+                        customQueryFilters(input: "GetNotificationsInProductionFilters")
+                        customBulkOperations(input: "GetBulkOperationsForNotificationsInProduction")
+                    }
                 }
             }
             column2: column {
@@ -476,6 +486,27 @@ export const productionQueries = gql`
                 }
             }
         }
+    }    
+    
+    query GetNotificationsInProductionFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(type: type) {
+                    type
+                    defaultValue(value: "notification")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasNotification.key")
+                    hidden(value: true)
+                }
+            }
+        }
     }
 
     query GetBulkOperationsForAssetInProduction {
@@ -515,6 +546,47 @@ export const productionQueries = gql`
                                 formQuery: "GetImportExistingEntityQuery"
                                 askForCloseConfirmation: true
                                 neededPermission: canupdate
+                            }
+                        }
+                    ]
+                ) {
+                    icon
+                    label
+                    value
+                    primary
+                    can
+                    actionContext {
+                        ...actionContext
+                    }
+                    bulkOperationModal {
+                        ...bulkOperationModal
+                    }
+                }
+            }
+        }
+    }
+    
+    query GetBulkOperationsForNotificationsInProduction {
+        CustomBulkOperations {
+            bulkOperationOptions {
+                options(
+                    input: [
+                        {   
+                            icon: PlusCircle
+                            label: "bulk-operations.create-notification"
+                            value: "createEntity"
+                            primary: true
+                            actionContext: {
+                                activeViewMode: readMode
+                                entitiesSelectionType: noneSelected
+                                labelForTooltip: "tooltip.bulkOperationsActionBar.readmode-noneselected"
+                            }
+                            bulkOperationModal: {
+                                typeModal: DynamicForm
+                                formQuery: "GetNotificationCreateForm"
+                                formRelationType: "isNotificationFor"
+                                askForCloseConfirmation: true
+                                neededPermission: cancreate
                             }
                         }
                     ]
@@ -695,6 +767,58 @@ export const productionQueries = gql`
                         }
                     }
                     __typename
+                }
+            }
+        }
+    }
+    
+    query GetNotifications(
+        $type: Entitytyping!
+        $limit: Int
+        $skip: Int
+        $searchValue: SearchFilter!
+        $advancedSearchValue: [FilterInput]
+        $advancedFilterInputs: [AdvancedFilterInput!]!
+        $searchInputType: SearchInputType
+    ) {
+        Entities(
+            type: $type
+            limit: $limit
+            skip: $skip
+            searchValue: $searchValue
+            advancedSearchValue: $advancedSearchValue
+            advancedFilterInputs: $advancedFilterInputs
+            searchInputType: $searchInputType
+        ) {
+            count
+            limit
+            results {
+                id
+                uuid
+                type
+                ... on Notification {
+                    ...minimalNotification
+                    intialValues {
+                        dateCreated: keyValue(key: "dateCreated", source: metadata)
+                        dateSend: keyValue(key: "dateSend", source: metadata)
+                    }
+                    teaserMetadata {
+                        dateCreated: metaData {
+                            label(input: "metadata.labels.date-created")
+                            key(input: "dateCreated")
+                        }
+                        dateSend: metaData {
+                            label(input: "metadata.labels.date-send")
+                            key(input: "dateSend")
+                        }
+                        contextMenuActions {
+                            doLinkAction {
+                                label(input: "contextMenu.contextMenuLinkAction.followLink")
+                                icon(input: "AngleRight")
+                                __typename
+                            }
+                        }
+                    }
                 }
             }
         }

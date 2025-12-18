@@ -31,6 +31,9 @@ export const podiumnetQueries = gql`
         ... on Production {
             ...fullProduction
         }
+        ... on Notification {
+            ...fullNotification
+        }
     }
 
     query getEntities(
@@ -71,6 +74,9 @@ export const podiumnetQueries = gql`
                 }
                 ... on Production {
                     ...minimalProduction
+                }
+                ... on Notification {
+                    ...minimalNotification
                 }
             }
         }
@@ -122,6 +128,9 @@ export const podiumnetQueries = gql`
             }
             ... on Production {
                 ...filtersForProduction
+            }
+            ... on Notification {
+                ...filtersForNotification
             }
         }
     }
@@ -424,6 +433,23 @@ export const podiumnetQueries = gql`
                         }
                     }
                 }
+#                notifications: menuItem(
+#                    label: "navigation.notifications"
+#                    entityType: asset
+#                    typeLink: { route: { destination: "notifications" } }
+#                    icon: Bell
+#                    requiresAuth: true
+#                ) {
+#                    label
+#                    entityType
+#                    typeLink {
+#                        route {
+#                            destination
+#                        }
+#                    }
+#                    icon
+#                    requiresAuth
+#                }
             }
         }
     }
@@ -470,6 +496,9 @@ export const podiumnetQueries = gql`
             ... on Production {
                 ...productionSortOptions
             }
+            ... on Notification {
+                ...notificationSortOptions
+            }
         }
     }
 
@@ -509,6 +538,9 @@ export const podiumnetQueries = gql`
             }
             ... on Production {
                 ...productionBulkOperations
+            }
+            ... on Notification {
+                ...notificationBulkOperations
             }
             ... on MediaFileEntity {
                 ...mediafileBulkOperations
@@ -610,6 +642,9 @@ export const podiumnetQueries = gql`
             }
             ... on Production {
                 ...previewForProduction
+            }
+            ... on Notification {
+                ...previewForNotification
             }
             ... on MediaFileEntity {
                 ...previewForMediafile

@@ -12,11 +12,19 @@ export const podiumnetFormattersConfig: FormattersConfig = {
             "background": "#ecdada",
             "text": "#ac1113",
         },
+        draft: {
+            "background": "#ecdada",
+            "text": "#ac1113",
+        },
         finaal: {
             "background": "#daecdd",
             "text": "#0b8319",
         },
         gepubliceerd: {
+            "background": "#daecdd",
+            "text": "#0b8319",
+        },
+        verzonden: {
             "background": "#daecdd",
             "text": "#0b8319",
         },

@@ -66,6 +66,26 @@ export const podiumnetRoutes = [
                 },
             },
             {
+                path: "/notifications",
+                name: RouteNames.Notifications,
+                component: "Home",
+                meta: {
+                    requiresAuth: false,
+                    type: Collection.Entities,
+                    entityType: Entitytyping.Notification,
+                    breadcrumbs: [
+                        {
+                            key: ["elody:1|relations.hasNotification.key"],
+                            entityType: Entitytyping.Production,
+                        },
+                        {
+                            overviewPage: RouteNames.Notifications,
+                            title: "navigation.notifications",
+                        },
+                    ],
+                },
+            },
+            {
                 path: "/mediafiles",
                 name: RouteNames.Mediafiles,
                 component: "Home",
