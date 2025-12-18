@@ -22,6 +22,7 @@ export const podiumnetFields: { [key: string]: InputField } = {
             {icon: DamsIcons.NoIcon, label: "Scènebeelden", value: "Scènebeelden"},
             {icon: DamsIcons.NoIcon, label: "Muziekfragmenten", value: "Muziekfragmenten"},
             {icon: DamsIcons.NoIcon, label: "Trailer", value: "Trailer"},
+            {icon: DamsIcons.NoIcon, label: "Rider", value: "Rider"},
             {icon: DamsIcons.NoIcon, label: "Pers", value: "Pers"},
             {icon: DamsIcons.NoIcon, label: "Omkadering", value: "Omkadering"},
             {icon: DamsIcons.NoIcon, label: "Social media", value: "Social media"},

@@ -69,6 +69,7 @@ export const productionQueries = gql`
                                 searchInputType(input: "AdvancedInputType")
                                 customQuery(input: "GetAssetsInCompletenessOverview")
                                 customQueryFilters(input: "GetAssetsWithTypeAfficheFilters")
+                                customBulkOperations(input: "GetBulkOperationsForCompletenessAssetInProduction")
                             }
                         }
                         Scenebeelden: panels {
@@ -85,6 +86,7 @@ export const productionQueries = gql`
                                 searchInputType(input: "AdvancedInputType")
                                 customQuery(input: "GetAssetsInCompletenessOverview")
                                 customQueryFilters(input: "GetAssetsWithTypeSceneFilters")
+                                customBulkOperations(input: "GetBulkOperationsForCompletenessAssetInProduction")
                             }
                         }
                         Muziekfragmenten: panels {
@@ -101,6 +103,7 @@ export const productionQueries = gql`
                                 searchInputType(input: "AdvancedInputType")
                                 customQuery(input: "GetAssetsInCompletenessOverview")
                                 customQueryFilters(input: "GetAssetsWithTypeMusicFilters")
+                                customBulkOperations(input: "GetBulkOperationsForCompletenessAssetInProduction")
                             }
                         }
                         Trailer: panels {
@@ -117,6 +120,24 @@ export const productionQueries = gql`
                                 searchInputType(input: "AdvancedInputType")
                                 customQuery(input: "GetAssetsInCompletenessOverview")
                                 customQueryFilters(input: "GetAssetsWithTypeTrailerFilters")
+                                customBulkOperations(input: "GetBulkOperationsForCompletenessAssetInProduction")
+                            }
+                        }
+                        Rider: panels {
+                            label(input: "Rider")
+                            panelType(input: metadata)
+                            isCollapsed(input: true)
+                            isEditable(input: true)
+                            canBeMultipleColumns(input: true)
+                            Rider: entityListElement {
+                                label(input: "Rider")
+                                isCollapsed(input: false)
+                                entityTypes(input: [asset])
+                                relationType: label(input: "hasAsset")
+                                searchInputType(input: "AdvancedInputType")
+                                customQuery(input: "GetAssetsInCompletenessOverview")
+                                customQueryFilters(input: "GetAssetsWithTypeRiderFilters")
+                                customBulkOperations(input: "GetBulkOperationsForCompletenessAssetInProduction")
                             }
                         }
                         Pers: panels {
@@ -133,6 +154,7 @@ export const productionQueries = gql`
                                 searchInputType(input: "AdvancedInputType")
                                 customQuery(input: "GetAssetsInCompletenessOverview")
                                 customQueryFilters(input: "GetAssetsWithTypePersFilters")
+                                customBulkOperations(input: "GetBulkOperationsForCompletenessAssetInProduction")
                             }
                         }
                         Omkadering: panels {
@@ -149,6 +171,7 @@ export const productionQueries = gql`
                                 searchInputType(input: "AdvancedInputType")
                                 customQuery(input: "GetAssetsInCompletenessOverview")
                                 customQueryFilters(input: "GetAssetsWithTypeOmkaderingFilters")
+                                customBulkOperations(input: "GetBulkOperationsForCompletenessAssetInProduction")
                             }
                         }
                         SocialMedia: panels {
@@ -165,6 +188,7 @@ export const productionQueries = gql`
                                 searchInputType(input: "AdvancedInputType")
                                 customQuery(input: "GetAssetsInCompletenessOverview")
                                 customQueryFilters(input: "GetAssetsWithTypeSocialMediaFilters")
+                                customBulkOperations(input: "GetBulkOperationsForCompletenessAssetInProduction")
                             }
                         }
                     }
@@ -176,9 +200,7 @@ export const productionQueries = gql`
                         searchInputType(input: "AdvancedInputType")
                         customQuery(input: "GetAssets")
                         customQueryFilters(input: "GetAssetsInProductionFilters")
-                        customBulkOperations(
-                            input: "GetBulkOperationsForAssetInProduction"
-                        )
+                        customBulkOperations(input: "GetBulkOperationsForAssetInProduction")
                     }
                 }
             }
@@ -512,6 +534,47 @@ export const productionQueries = gql`
             }
         }
     }
+    
+    query GetBulkOperationsForCompletenessAssetInProduction {
+        CustomBulkOperations {
+            bulkOperationOptions {
+                options(
+                    input: [
+                        {   
+                            icon: PlusCircle
+                            label: "bulk-operations.create-asset"
+                            value: "createEntity"
+                            primary: true
+                            actionContext: {
+                                activeViewMode: readMode
+                                entitiesSelectionType: noneSelected
+                                labelForTooltip: "tooltip.bulkOperationsActionBar.readmode-noneselected"
+                            }
+                            bulkOperationModal: {
+                                typeModal: DynamicForm
+                                formQuery: "GetAssetCreateFormInDetail"
+                                formRelationType: "isAssetFor"
+                                askForCloseConfirmation: true
+                                neededPermission: cancreate
+                            }
+                        }
+                    ]
+                ) {
+                    icon
+                    label
+                    value
+                    primary
+                    can
+                    actionContext {
+                        ...actionContext
+                    }
+                    bulkOperationModal {
+                        ...bulkOperationModal
+                    }
+                }
+            }
+        }
+    }
 
     query GetAssetCreateFormInDetail {
         GetDynamicForm {
@@ -812,6 +875,54 @@ export const productionQueries = gql`
                     key
                     hidden(value: true)
                     defaultValue(value: "Trailer")
+                    operator
+                }
+                unfinishedStatus: advancedFilter(
+                    type: selection
+                    key: ["elody:1|metadata.status.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: ["Concept", "Verwacht"])
+                    operator
+                }
+            }
+        }
+    }
+    
+    query GetAssetsWithTypeRiderFilters($entityType: String!) {
+        EntityTypeFilters(type: $entityType) {
+            advancedFilters {
+                type: advancedFilter(
+                    type: type
+                    operator: and
+                ) {
+                    type
+                    defaultValue(value: "asset")
+                    hidden(value: true)
+                }
+                relation: advancedFilter(
+                    type: selection
+                    key: ["elody:1|identifiers"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    defaultValue(value: "$entity.relationValues.hasAsset.key")
+                    hidden(value: true)
+                    operator
+                }
+                assetType: advancedFilter(
+                    type: text
+                    key: ["elody:1|metadata.assetType.value"]
+                    operator: and
+                ) {
+                    type
+                    key
+                    hidden(value: true)
+                    defaultValue(value: "Rider")
                     operator
                 }
                 unfinishedStatus: advancedFilter(
