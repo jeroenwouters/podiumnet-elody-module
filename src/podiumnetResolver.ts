@@ -4,7 +4,7 @@ import {
     Metadata,
     Resolvers,
     WindowElement,
-    RelationFieldInput,
+    BaseRelationValuesInput,
 } from "../generated-types/type-defs";
 
 const baseSetOffResolvers = {
@@ -68,7 +68,7 @@ export const podiumnetResolver: Resolvers = {
             const createdEntity = await dataSources.CollectionAPI.createEntity(
                 entity,
                 (entity.metadata as Metadata[]) || [],
-                (entity.relations as RelationFieldInput[]) || [],
+                (entity.relations as BaseRelationValuesInput[]) || [],
             );
             return createdEntity as BaseEntity;
         },
